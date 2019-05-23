@@ -191,14 +191,22 @@
                   </div>
                 </li>
               </ul>
+              <?php
+                // $user = $this->session->userdata('users');
+                //   if($user){
+                //     extract($user);
+                //   }
+             ?>
               <div class="dropdown">
-                <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="user-avatar user-avatar-md"><img src="https://uselooper.com/assets/images/avatars/profile.jpg" alt=""></span> <span class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name">Beni Arisandi</span> <span class="account-description">Marketing Manager</span></span></button>
+                <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="user-avatar user-avatar-md"><img src="https://uselooper.com/assets/images/avatars/profile.jpg" alt=""></span> 
+                <span class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name"><?php //echo $firstname ?></span> 
+                <span class="account-description">Marketing Manager</span></span></button>
                 <div class="dropdown-arrow dropdown-arrow-left"></div>
                 <div class="dropdown-menu">
-                  <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6>
+                  <h6 class="dropdown-header d-none d-md-block d-lg-none"> </h6>
                   <a class="dropdown-item" href="user-profile.html">
                       <span class="dropdown-icon oi oi-person"></span> Profile</a> 
-                      <a class="dropdown-item" href="<?php echo base_url('/index.php/auth/login') ?>"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
+                      <a class="dropdown-item" href="<?php echo base_url("/auth/logout") ?>"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
                 </div>
               </div>
             </div>

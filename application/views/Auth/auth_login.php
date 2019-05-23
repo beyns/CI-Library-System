@@ -9,7 +9,7 @@
 			<img src="assets/images/brand-inverse.png" alt="" height="72" />
 			<span class="sr-only">Sign In</span>
 		</h1>
-		<p>Don't have a account? <a href="<?php echo base_url('/index.php/register') ?>">Create One</a></p>
+		<p>Don't have a account? <a href="<?php echo base_url('auth/register') ?>">Create One</a></p>
 		<canvas
 			class="particles-js-canvas-el"
 			width="1600"
@@ -30,7 +30,7 @@
 					autofocus=""
 					name="uname"
 				/>
-				<label for="inputUser">Usernasme</label>
+				<label for="inputUser">Username</label>
 			</div>
 		</div>
 
@@ -48,11 +48,10 @@
 			</div>
 		</div>
 
-		<div class="form-group">
 			<button class="btn btn-lg btn-primary btn-block" id="btn-login" type="button">
 				Sign In
 			</button>
-		</div>
+			</form>
 
 		<div class="form-group text-center">
 			<div class="custom-control custom-control-inline custom-checkbox">
@@ -68,6 +67,5 @@
 			<span class="mx-2">·</span>
 			<a href="auth-recovery-password.html" class="link">Forgot Password?</a>
 		</div>
-	</form>
 </main>
 <?php $this->load->view('template/include_footer.php') ?>

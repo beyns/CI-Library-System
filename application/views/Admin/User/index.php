@@ -42,7 +42,7 @@
 								Books
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php echo base_url("/index.php/admin/book/books")?>">Book List</a>
+								<a class="dropdown-item" href="<?php echo base_url("/admin/book/books")?>">Book List</a>
 								<a class="dropdown-item" href="#">Category</a>
 							</div>
 						</li>

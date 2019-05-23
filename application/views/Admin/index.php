@@ -1,19 +1,93 @@
+
 <?php $this->load->view('template/include_head.php') ?>
+<?php $this->load->view('admin/header.php') ?>
+<?php $this->load->view('template/include_head.php') ?>
+
 <?php $this->load->view('admin/header.php') ?>
 
 <main class="app-main">
 	<div class="wrapper">
 		<div class="page">
-			<nav class="page-navs">
-				<div class="nav-scroller">
-					<div class="nav nav-tabs">
-						<a class="nav-link active" href="#">Home</a>
-						<a class="nav-link" href="#">Books <span class="badge">16</span></a>
-						<a class="nav-link" href="#">Users</a>
-						<a class="nav-link" href="#">Projects</a>
-						<a class="nav-link" href="#">Tasks</a>
-						<a class="nav-link" href="#">Settings</a>
-					</div>
+			<nav
+				class="navbar navbar-expand-lg navbar-light bg-white"
+				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem"
+			>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item ">
+							<a class="nav-link active" href="#"
+								>Home <span class="sr-only">(current)</span></a
+							>
+						</li>
+						<li class="nav-item  dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								href="#"
+								id="navbarDropdown"
+								role="button"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
+							>
+								Books
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="<?php echo base_url("admin/book/books")?>">Book List</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/book/category")?>">Category</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								href="#"
+								id="navbarDropdown"
+								role="button"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
+							>
+								Users
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Members</a>
+								<a class="dropdown-item" href="#">Borrowers</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								href="#"
+								id="navbarDropdown"
+								role="button"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
+							>
+								Transactions
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Borrowed Books</a>
+								<a class="dropdown-item" href="#">Returnd Books</a>
+							</div>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href="#"
+								>Reports <span class="sr-only">(current)</span></a
+							>
+						</li>
+					</ul>
 				</div>
 			</nav>
 			<div class="page-inner container">
@@ -26,138 +100,111 @@
 							>
 						</p>
 						<div class="ml-auto">
-							<!-- .dropdown -->
-							<div class="dropdown">
-								<button
-									class="btn btn-secondary"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-								>
-									<span>This Week</span> <i class="fa fa-fw fa-caret-down"></i>
-								</button>
-								<div class="dropdown-arrow dropdown-arrow-right"></div>
-								<!-- .dropdown-menu -->
+							<!-- Button trigger modal -->
+							<button
+								type="button"
+								class="btn btn-primary"
+								data-toggle="modal"
+								data-target="#exampleModal"
+							>
+								Add Book Category
+							</button>
+
+							<!-- Modal -->
+							<div
+								class="modal fade"
+								id="exampleModal"
+								tabindex="-1"
+								role="dialog"
+								aria-labelledby="exampleModalLabel"
+								aria-hidden="true"
+							>
 								<div
-									class="dropdown-menu dropdown-menu-right dropdown-menu-md stop-propagation"
+									class="modal-dialog modal-dialog-centered modal-sm"
+									role="document"
 								>
-									<!-- .custom-control -->
-									<div class="custom-control custom-radio">
-										<input
-											type="radio"
-											class="custom-control-input"
-											id="dpToday"
-											name="dpFilter"
-											value="0"
-										/>
-										<label
-											class="custom-control-label d-flex justify-content-between"
-											for="dpToday"
-											><span>Today</span>
-											<span class="text-muted">Mar 27</span></label
-										>
-									</div>
-									<!-- /.custom-control -->
-									<!-- .custom-control -->
-									<div class="custom-control custom-radio">
-										<input
-											type="radio"
-											class="custom-control-input"
-											id="dpYesterday"
-											name="dpFilter"
-											value="1"
-										/>
-										<label
-											class="custom-control-label d-flex justify-content-between"
-											for="dpYesterday"
-											><span>Yesterday</span>
-											<span class="text-muted">Mar 26</span></label
-										>
-									</div>
-									<!-- /.custom-control -->
-									<!-- .custom-control -->
-									<div class="custom-control custom-radio">
-										<input
-											type="radio"
-											class="custom-control-input"
-											id="dpWeek"
-											name="dpFilter"
-											value="2"
-											checked=""
-										/>
-										<label
-											class="custom-control-label d-flex justify-content-between"
-											for="dpWeek"
-											><span>This Week</span>
-											<span class="text-muted">Mar 21-27</span></label
-										>
-									</div>
-									<!-- /.custom-control -->
-									<!-- .custom-control -->
-									<div class="custom-control custom-radio">
-										<input
-											type="radio"
-											class="custom-control-input"
-											id="dpMonth"
-											name="dpFilter"
-											value="3"
-										/>
-										<label
-											class="custom-control-label d-flex justify-content-between"
-											for="dpMonth"
-											><span>This Month</span>
-											<span class="text-muted">Mar 1-31</span></label
-										>
-									</div>
-									<!-- /.custom-control -->
-									<!-- .custom-control -->
-									<div class="custom-control custom-radio">
-										<input
-											type="radio"
-											class="custom-control-input"
-											id="dpYear"
-											name="dpFilter"
-											value="4"
-										/>
-										<label
-											class="custom-control-label d-flex justify-content-between"
-											for="dpYear"
-											><span>This Year</span>
-											<span class="text-muted">2018</span></label
-										>
-									</div>
-									<!-- /.custom-control -->
-									<!-- .custom-control -->
-									<div class="custom-control custom-radio">
-										<input
-											type="radio"
-											class="custom-control-input"
-											id="dpCustom"
-											name="dpFilter"
-											value="5"
-										/>
-										<label class="custom-control-label" for="dpCustom"
-											>Custom</label
-										>
-										<div class="custom-control-hint my-1">
-											<!-- datepicker:range -->
-											<input
-												type="text"
-												class="form-control flatpickr-input"
-												data-toggle="flatpickr"
-												data-mode="range"
-												data-disable-mobile="true"
-												data-date-format="Y-m-d"
-												readonly="readonly"
-											/>
-											<!-- /datepicker:range -->
+									<div class="modal-content ">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">
+												Category
+											</h5>
+											<button
+												type="button"
+												class="close"
+												data-dismiss="modal"
+												aria-label="Close"
+											>
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<form>
+												<div class="form-group ">
+													<label for="inputPassword4">Category</label>
+													<input
+														type="text"
+														class="form-control"
+														id="inputPassword4"
+														placeholder=""
+													/>
+												</div>
+												<div class="form-group">
+													<div
+														class="custom-control custom-control-inline custom-checkbox"
+													>
+														<input
+															type="checkbox"
+															class="custom-control-input"
+															id="ckb1"
+														/>
+														<label class="custom-control-label" for="ckb1"
+															>Add Sub-category</label
+														>
+													</div>
+												</div>
+
+												<!-- <div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="inputCity">City</label>
+														<input
+															type="text"
+															class="form-control"
+															id="inputCity"
+														/>
+													</div>
+													<div class="form-group col-md-4">
+														<label for="inputState">State</label>
+														<select id="inputState" class="form-control">
+															<option selected>Choose...</option>
+															<option>...</option>
+														</select>
+													</div>
+													<div class="form-group col-md-2">
+														<label for="inputZip">Zip</label>
+														<input
+															type="text"
+															class="form-control"
+															id="inputZip"
+														/>
+													</div>
+												</div> -->
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button
+												type="button"
+												class="btn btn-secondary"
+												data-dismiss="modal"
+											>
+												Close
+											</button>
+											<button type="button" class="btn btn-primary">
+												Save changes
+											</button>
 										</div>
 									</div>
-									<!-- /.custom-control -->
 								</div>
-								<!-- /.dropdown-menu -->
 							</div>
-							<!-- /.dropdown -->
 						</div>
 					</div>
 				</header>

@@ -13,7 +13,7 @@
 			<span class="sr-only">Sign Up</span>
 		</h1>
 		<p>
-			Already have an account? please <a href="<?php echo base_url('/index.php/login') ?>">Sign In</a>
+			Already have an account? please <a href="<?php echo base_url('/auth/login') ?>">Sign In</a>
 		</p>
 		<canvas
 			class="particles-js-canvas-el"

@@ -57,7 +57,5 @@ $route['default_controller'] = 'welcome';
 $route['signup'] = 'signup.php';
 
 
-$route['login'] = 'auth/login/login';
-$route['register'] = 'auth/register';
 
 
