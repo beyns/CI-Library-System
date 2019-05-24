@@ -9,10 +9,6 @@ class SubCategory extends CI_Controller
         $this->load->model(['Books/Sub_Category_Model' => 'sub_cat_m']);
     }
 
-    public function index()
-    {
-        echo 'hello';
-    }
     public function insert_sub_category()
     {
         $category_id = $this->input->post('id');

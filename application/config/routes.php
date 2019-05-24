@@ -56,6 +56,8 @@ $route['default_controller'] = 'welcome';
 
 $route['signup'] = 'signup.php';
 
-
-
+$route['subcategory/add']['POST'] = 'admin/book/subcategory/insert_sub_category';
+$route['category/add']['POST'] = 'admin/book/category/add_book_category';
+$route['book/show']['GET'] = 'admin/book/books/show';
+$route['book/remove']['GET'] = 'admin/book/books/destroy';
 

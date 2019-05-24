@@ -7,6 +7,7 @@ class Category extends CI_Controller
     {
         parent::__construct();
         $this->load->model(['Books/Category_Model' => 'cat_m']);
+        $this->load->model(['Books/Book_Model' => 'book_m']);
     }
 
     public function index()
@@ -77,6 +78,10 @@ class Category extends CI_Controller
     {
         $this->form_validation->set_rules('category', 'Category' , 'required');
         $data = $this->input->post();
+        if(empty($data)){
+            show_404();
+        }
+        unset($data['csrf_test_name']);
         $status_code = 200;
         $response = array('status' => $status_code, 'message' => 'success' );
 
@@ -92,14 +97,12 @@ class Category extends CI_Controller
 
         }
         else {
-            if ($this->cat_m->add($data)) {
-                
+                 $this->cat_m->add($data);
                 return $this->output
                 ->set_header('HTTP/1.1 200 OK')
                 ->set_status_header($status_code)
                 ->set_content_type('application/json')
                 ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
-            }
         }
        
     }
@@ -107,9 +110,8 @@ class Category extends CI_Controller
     public function get_category()
     {
         $id = $this->input->post('id');
-        $data = $this->cat_m->get_category_name($id);
-        
-        echo json_encode($data);
+        $result = $this->book_m->getSubCategoryByCategoryId($id);
+        echo json_encode($result);
     }
 
 }

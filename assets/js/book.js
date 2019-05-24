@@ -1,19 +1,16 @@
 $(document).ready(() => {
     var base_url = window.location.origin;
     var category_table;
+    var book_table;
     var max_field = 10;
     var wrapper = $(".form-group-input"); //Fields wrapper
 
-    $("#btn_show_category").click(() => {
-        $(".modal_category").modal('show');
-    });
 
-
-    category_table = $("#categoryTable").DataTable({
+    book_table = $("#bookTable").DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: base_url + "/admin/book/category/categoryTable",
+            url: base_url + "/admin/book/books/booksTable",
             dataType: "json",
             // data: {_token : $('meta[name="token_"]').attr('content')},
             type: "POST"
@@ -33,7 +30,49 @@ $(document).ready(() => {
             },
 
             {
+                data: "title",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+            {
+                data: "description",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 10);
+                }
+            },
+            {
+                data: "author",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+            {
+                data: "isbn",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+            {
                 data: "category",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+            {
+                data: "subcategory",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+            {
+                data: "qty",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+            {
+                data: "borrowed_qty",
                 render: function (data, type, row, meta) {
                     return textTruncate(type, data, 20);
                 }
@@ -44,21 +83,24 @@ $(document).ready(() => {
                 searchable: false,
                 orderable: false,
                 render: function (data, type, row, meta) {
-					/**
-					 * Attach actions
-					 */
+                    /**
+                     * Attach actions
+                     */
                     //   return "<div class=\"btn-group\" role=\"group\" aria-label=\"actions\">" +
                     //           "<button class='btn btn-xs btn-primary viewBtn' type='button' title='View' data-toggle='modal' data-target='#viewCategoryModal' value='"+data+"'><span class='fa fa-eye'></span></button> " +
                     //           "<button class='btn btn-xs btn-success editBtn' type='button' title='Edit' data-toggle='modal' data-target='#editCategoryModal' value='"+data+"'><span class='fa fa-pencil'></span></button>" +
                     //           "<button class='btn btn-xs btn-danger delBtn' type='button' title='Delete' data-toggle='modal' data-target='#deleteCategoryModal' value='"+data+"'><span class='fa fa-trash'></span></button>" +
                     //           "</div>";
                     return (
-                        "<button data-toggle='modal' data-id='" +
+                        "<button  data-id='" +
                         data +
-                        "' class='btn btn-danger btn-xs subCat'><i class='fas fa-plus'></i></button>" +
-                        "<button type='button' data-toggle='modal' data-id='" +
+                        "' class='btn btn-sm btn-icon btn-secondary  btn-modal' id='btn-modal-view' >  <i class='far fa-eye'></i></button>" +
+                        "<button data-id='" +
                         data +
-                        "' class='btn  btn-xs btn-primary editUserInfo' id='editmodal'>Edit</button>"
+                        "' class='btn btn-sm btn-icon btn-secondary btn-modal' id ='btn-modal-edit'>   <i class='fa fa-pencil-alt'></i></button>" +
+                        "<button data-id='" +
+                        data +
+                        "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-modal-del' href='#' id ='btn-modal-edit'><i class='far fa-trash-alt'></i></button>"
                     );
 
                     ("Edit");
@@ -67,28 +109,91 @@ $(document).ready(() => {
             }
         ],
         drawCallback: function () {
+
+            $('.btn-modal').click(function () {
+                var btn_class = $(this).attr("id");
+                var id = $(this).data("id");
+                if (btn_class == 'btn-modal-view') {
+
+                    $(".id").val(id);
+                    $.get(base_url + '/book/show', { id: id }).done(function (result) {
+                        let parseResult = JSON.parse(result);
+                        $(".booktitle").text(parseResult.title);
+                        $(".description").text(parseResult.description);
+                        $(".author").text(parseResult.author);
+                        $(".category").text(parseResult.category);
+                        $(".isbn").text(parseResult.isbn);
+                    });
+                    $('#modal_view').modal('show');
+
+                }
+                else if (btn_class == 'btn-modal-edit') {
+                    $(".id").val(id);
+                    $.get(base_url + '/book/show', { id: id }).done(function (result) {
+                        console.log(result);
+                        let parseResult = JSON.parse(result);
+                        $("#b_id").val(parseResult.id);
+                        $("#b_title").val(parseResult.title);
+                        $("#b_description").val(parseResult.description);
+                        $("#b_isbn").val(parseResult.isbn);
+                        $("#b_author").val(parseResult.author);
+                        $("#b_category").val(parseResult.category);
+                        $("#b_subcategory").val(parseResult.subcategory);
+                        $("#b_quantity").val(parseResult.qty);
+
+                    });
+                    $('#modal_edit').modal('show');
+                }
+
+                else {
+                    $(".id").val(id);
+                    $.get(base_url + '/book/show', { id: id }).done(function (result) {
+                        console.log(result);
+                        let parseResult = JSON.parse(result);
+                        $("#book_id").val(parseResult.id);
+                        $(".book_title").text(parseResult.title);
+                    });
+                    $('#modal_del').modal('show');
+                }
+
+
+
+                // $('#modal_view').modal('show');
+            });
+
             $(".subCat").click(function () {
-                let id = $(this).data("id")
+                let id = $(this).data("id"),
+                    sub_category = $('.frm-grp-subcat');
                 console.log(id);
+
                 $.post(base_url + "/admin/book/category/get_category", { id: id }).done(function (result) {
-                    var jsonResult = JSON.parse(result);
-                    $("#id").val(jsonResult.id);
-                    $(".category").val(jsonResult.category);
+                    console.log(result);
+
+                    var res = jQuery.parseJSON(result);
+                    console.log(res.category);
+                    console.log(res);
+                    $.each(res, function (k, v) {
+                        $('.category').text(v.category);
+                        $("#id").val(v.id);
+                        (sub_category).append(
+                            '<div class="todo ">' +
+                            ' <div class="custom-control custom-checkbox">' +
+                            '<input type="checkbox" class="custom-control-input" name="subcat[]" id="' + v.id + '">' +
+                            '<label class="custom-control-label" for="' + v.id + '">' + v.sub_category + '</label>' +
+                            '</div>' +
+                            '</div>'
+
+                        );
+                    });
+                    if (res.length) {
+                        sub_category.attr('disabled', false);
+                    } else {
+                        sub_category.attr('disabled', 'disabled');
+                    }
                 })
-                // $("#category").val(jsonResult.ca);
+
                 $(".modal_subCat").modal('show');
             });
-            // $(".editUserInfo").click(function () {
-            //     var id = $(this).data("id");
-            //     $.post(base_url + "/user/getUser", { id: id }).done(function (result) {
-            //         var jsonResult = JSON.parse(result);
-            //         $("#userid").val(jsonResult.id);
-            //         $("#fname").val(jsonResult.firstname);
-            //         $("#lname").val(jsonResult.lastname);
-            //         $("#email").val(jsonResult.email);
-            //         $("#editModal").modal("show");
-            //     });
-            // });
         },
         order: []
     });
@@ -110,43 +215,45 @@ $(document).ready(() => {
     }
 
 
-
-    $('#btn-category').click(function () {
-        $.post(base_url + "/admin/book/category/add_book_category", $(".frm-category").serialize()).done(function (result) {
-            $(".modal_category").modal('hide');
-            category_table.ajax.reload();
-        }).fail(function (result) {
-            console.log(result);
-        })
+    $('#show-bookModal').click(function () {
+        $('.modal_book').modal('show');
     })
 
-    $('#btn-fields').click(function () {
-        var x = 1;
-        if (x < max_field) {
-            x++;
-            $(wrapper).append('<div class="form-group ">' +
-                '<input type="text" class="form-control" id="sub_category"name="sub_category[]"' +
-                'placeholder="" /></div>'); //add input box
-        }
-    })
-
-    $('#btn-sub_category').click(function () {
-        let data = $(".frm_sub_category").serialize();
-        $.post(base_url + "/admin/book/subcategory/insert_sub_category", data).done(function (result) {
-            console.log(result);
+    $('.btn-add-book').click(function () {
+        $.post(base_url + '/admin/book/books/insert', $('.frmbook').serialize()).done(function (result) {
+            book_table.ajax.reload();
+            $('.modal_book').modal('hide');
         });
     });
-
     $('#select_category').change(function () {
-        let id = $(this).find(":selected").data('id');
+        let id = $(this).find(":selected").data('id'),
+            sub_category = $('#sub_category');
         $.post(base_url + "/admin/book/books/select_sub_category", { id: id }).done(function (result) {
 
-            console.log(result);
+            var res = jQuery.parseJSON(result);
+            sub_category.empty();
+            $.each(res, function (k, v) {
+                sub_category.append($('<option>', {
+                    value: v.sub_category,
+                    text: v.sub_category
+                }));
+            });
+            if (res.length) {
+                // sub_category.attr('disabled', false);
+                $(".subcategory").show();
+            } else {
+                // sub_category.attr('disabled', 'disabled');
+                $(".subcategory").hide();
+            }
         })
-        console.log(id);
+        // console.log(id);
     })
 
-    $(document).ready(function () {
-        $('.js-example-basic-single').select2();
-    });
+    $('#btn-remove-book').click(function () {
+        var frm = $("removebook").serialize();
+        $.get(base_url + '/book/remove', frm).done(function (result) {
+            book_table.ajax.reload();
+        })
+    })
+
 })

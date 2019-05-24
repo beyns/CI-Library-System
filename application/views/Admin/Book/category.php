@@ -87,6 +87,7 @@
 				</table>
 			</div>
 		</div>
+		<!-- Modal Category -->
 		<div class="modal fade modal_category" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -100,41 +101,27 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form class="frm-category">
-							<div class="form-group ">
-								<label for="inputPassword4">Category</label>
-								<input type="text" class="form-control" id="category" , name="category"
-									placeholder="" />
-							</div>
-							<!-- <div class="hey">
-													<div class="form-group ">
-														<label for="inputPassword4">Sub-category</label>
-														<input type="text" class="form-control" id="category" ,
-															name="sub_category" placeholder="" />
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="custom-control custom-control-inline custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="ckb1"
-															value="checked" />
-														<label class="custom-control-label" for="ckb1">Add
-															Sub-category</label>
-													</div>
-												</div> -->
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">
-									Close
-								</button>
-								<button type="button" id="btn-category" class="btn btn-primary">
-									Save changes
-								</button>
-							</div>
+						<?php echo form_open('', array('class' => 'frm-category'  ));?>
+						<div class="form-group ">
+							<label for="inputPassword4">Category</label>
+							<input type="text" class="form-control" id="category" , name="category" placeholder="" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								Close
+							</button>
+							<button type="button" id="btn-category" class="btn btn-primary">
+								Save changes
+							</button>
+						</div>
 						</form>
 					</div>
 
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal Subcat -->
 		<div class="modal fade modal_subCat" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -148,36 +135,30 @@
 						</button>
 					</div>
 					<div class="modal-body">
+							<?php echo form_open('', array('class' => 'frm_sub_category'  ));?>
+						<input type="hidden" name="id" id="id" />
+						<!--  -->
+						<div class="todo-list frm-grp-subcat">
+							<div class="todo-header category"> </div><!-- /.todo-header -->
+							<input type="checkbox" class="custom-control-input ccc">
+						</div>
+						<div class="form-group-input ">
+							<div class="form-group ">
+								<input type="text" class="form-control" id="sub_category" name="sub_category[]"
+									placeholder="" />
+							</div>
+						</div>
 
-						<form class="frm_sub_category">
-							<input type="hidden" name="id" id="id" />
-							<div class="form-group-input">
-								<div class="form-group ">
-									<input type="text" class="form-control" id="sub_category" name="sub_category[]"
-										placeholder="" />
-								</div>
-							</div>
-
-							<button class="btn btn-primary btn-xs" id="btn-fields" type="button"><i
-									class="fas fa-plus"></i> </button>
-							<!-- <div class="hey">
-								
-							</div>
-							<div class="form-group">
-								<div class="custom-control custom-control-inline custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="ckb1" value="checked" />
-									<label class="custom-control-label" for="ckb1">Add
-										Sub-category</label>
-								</div>
-							</div> -->
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">
-									Close
-								</button>
-								<button type="button" id="btn-sub_category" class="btn btn-primary">
-									Save changes
-								</button>
-							</div>
+						<button class="btn btn-primary btn-xs" id="btn-fields" type="button"><i class="fas fa-plus"></i>
+						</button>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								Close
+							</button>
+							<button type="button" id="btn-sub_category" class="btn btn-primary">
+								Save changes
+							</button>
+						</div>
 						</form>
 					</div>
 
