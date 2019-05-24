@@ -39,7 +39,7 @@
             <div class="modal-body">
                 <?php echo form_open('' ,array('class' => 'removebook'))?>
                     <input type="hidden" id="book_id" name="id" />
-                <p>Are you sure you want to delete this book?</p>
+                    <p>Are you sure you want to delete this book?</p>
                 <button type="button" class="btn btn-danger" id="btn-remove-book" data-dismiss="modal">Remove</button>
 				</form>
             </div><!-- /.modal-body -->

@@ -114,8 +114,7 @@ class Books extends CI_Controller
 
     public function destroy()
     {
-        $id =  $this->input->get('id',TRUE);
-        echo $id;
+        $id =  $this->input->post('id');
        $this->book_m->remove_book($id);
         
     }

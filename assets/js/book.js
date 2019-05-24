@@ -28,7 +28,12 @@ $(document).ready(() => {
                 searchable: true,
                 visible: true
             },
-
+            {
+                data: "isbn",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
             {
                 data: "title",
                 render: function (data, type, row, meta) {
@@ -47,12 +52,7 @@ $(document).ready(() => {
                     return textTruncate(type, data, 20);
                 }
             },
-            {
-                data: "isbn",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
-            },
+
             {
                 data: "category",
                 render: function (data, type, row, meta) {
@@ -173,6 +173,7 @@ $(document).ready(() => {
                     console.log(res.category);
                     console.log(res);
                     $.each(res, function (k, v) {
+                        $('.frm-grp-subcat').empty();
                         $('.category').text(v.category);
                         $("#id").val(v.id);
                         (sub_category).append(
@@ -250,8 +251,9 @@ $(document).ready(() => {
     })
 
     $('#btn-remove-book').click(function () {
-        var frm = $("removebook").serialize();
-        $.get(base_url + '/book/remove', frm).done(function (result) {
+        var frm = $(".removebook").serialize();
+        $.post(base_url + '/admin/book/books/destroy', frm).done(function (result) {
+            console.log(result);
             book_table.ajax.reload();
         })
     })

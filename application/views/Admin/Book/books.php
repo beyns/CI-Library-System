@@ -176,14 +176,14 @@
 						</div>
 					</div>
 				</header>
-				<table class="display table table-striped table-hover" id="bookTable">
+				<table class="display table table-striped table-hover " id="bookTable">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
+							<th scope="col">ISBN</th>
 							<th scope="col">Book Name</th>
 							<th scope="col">Description</th>
 							<th scope="col">Author(s)</th>
-							<th scope="col">ISBN</th>
 							<th scope="col">Category</th>
 							<th scope="col">Subcategory</th>
 							<th scope="col">Qty</th>
