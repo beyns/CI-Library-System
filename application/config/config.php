@@ -461,7 +461,9 @@ $config['csrf_exclude_uris'] = array(
     'admin/book/category/add_book_category',
     'admin/book/subcategory/insert_sub_category',
     'admin/book/books/booksTable',
-    'admin/book/books/destroy'
+    'admin/book/books/destroy',
+    'admin/user/members/insert',
+    'books/booklist/borrow_book'
 );
 
 /*

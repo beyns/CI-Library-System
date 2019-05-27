@@ -1,4 +1,4 @@
-<?php $this->load->view('template/include_head.php') ?>
+hello<?php $this->load->view('template/include_head.php') ?>
 <?php $this->load->view('admin/header.php') ?>
 <?php $this->load->view('template/include_head.php') ?>
 <?php $this->load->view('admin/header.php') ?>
@@ -19,38 +19,16 @@
 						<li class="nav-item ">
 							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 						</li>
-						<li class="nav-item  dropdown">
+						<li class="nav-item active dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Books
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php echo base_url("/admin/book/books")?>">Book List</a>
-								<a class="dropdown-item" href="#">Category</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url("/index.php/admin/book/books")?>">Book List</a>
+							
 							</div>
-						</li>
-						<li class="nav-item active dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Users
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Members</a>
-								<a class="dropdown-item" href="#">Borrowers</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Transactions
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Borrowed Books</a>
-								<a class="dropdown-item" href="#">Returnd Books</a>
-							</div>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link" href="#">Reports <span class="sr-only">(current)</span></a>
 						</li>
 					</ul>
 				</div>
@@ -59,24 +37,30 @@
 				<header class="page-title-bar">
 					<div class="d-flex flex-column flex-md-row">
 						<p class="lead">
-							<span class="font-weight-bold">Hi, Beni.</span>
-							<span class="d-block text-muted">Here’s what’s happening with your business today.</span>
+							<span class="font-weight-bold">Books List</span>
 						</p>
-						<div class="ml-auto">
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary" id ="member_show">
-								Add Book Category
-							</button>
-
-						
-						</div>
+					
 					</div>
 				</header>
+				<table class="display table table-striped table-hover " id="booklist">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">ISBN</th>
+							<th scope="col">Book Name</th>
+							<th scope="col">Description</th>
+							<th scope="col">Author(s)</th>
+							<th scope="col">Category</th>
+							<th scope="col">Subcategory</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
 
-				<?php $this->load->view('admin/user/view_members') ?>
-				<?php $this->load->view('admin/user/modal') ?>
+				</table>
 			</div>
 		</div>
+		<?php $this->load->view('books/borrow_modal') ?>
+
 	</div>
 	<footer class="app-footer">
 		<ul class="list-inline">

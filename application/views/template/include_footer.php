@@ -10,6 +10,8 @@
 <script src="<?php echo base_url('assets/js/user.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/book.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/book_category.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/members.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/borrower.js'); ?>"></script>
 
 </body>
 </html>
