@@ -6,7 +6,7 @@
 <main class="app-main">
 	<div class="wrapper">
 		<div class="page">
-			<nav class="navbar navbar-expand-lg navbar-light bg-white"
+		<nav class="navbar navbar-expand-lg navbar-light bg-white"
 				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -17,16 +17,18 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item ">
-							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+							<a class="nav-link" href="<?php echo base_url('admin/dashboard')?>">Home <span class="sr-only">(current)</span></a>
 						</li>
-						<li class="nav-item  dropdown">
+						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Books
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php echo base_url("/admin/book/books")?>">Book List</a>
-								<a class="dropdown-item" href="#">Category</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url("admin/book/books")?>">Book List</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url("admin/book/category")?>">Category</a>
 							</div>
 						</li>
 						<li class="nav-item active dropdown">
@@ -35,8 +37,8 @@
 								Users
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Members</a>
-								<a class="dropdown-item" href="#">Borrowers</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/members")?>">Members</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/borrowers")?>">Borrowers</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -45,8 +47,8 @@
 								Transactions
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Borrowed Books</a>
-								<a class="dropdown-item" href="#">Returnd Books</a>
+								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/borrowedbooks')?>">Borrowed Books</a>
+								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/returnedbooks')?>">Returnd Books</a>
 							</div>
 						</li>
 						<li class="nav-item ">
@@ -65,7 +67,7 @@
 						<div class="ml-auto">
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary" id ="member_show">
-								Add Book Category
+								Add Member
 							</button>
 
 						

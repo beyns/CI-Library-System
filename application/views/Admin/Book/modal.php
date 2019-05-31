@@ -38,14 +38,14 @@
 
             <div class="modal-body">
                 <?php echo form_open('' ,array('class' => 'removebook'))?>
-                    <input type="hidden" id="book_id" name="id" />
-                    <p>Are you sure you want to delete this book?</p>
+                <input type="hidden" id="book_id" name="id" />
+                <p>Are you sure you want to delete this book?</p>
                 <button type="button" class="btn btn-danger" id="btn-remove-book" data-dismiss="modal">Remove</button>
-				</form>
+                </form>
             </div><!-- /.modal-body -->
             <!-- .modal-footer -->
             <div class="modal-footer">
-               
+
             </div><!-- /.modal-footer -->
         </div>
     </div>
@@ -85,8 +85,8 @@
                 </div>
                 <input type="hidden" class="form-control" id="b_id" name="id" placeholder="" />
                 <div class="form-group">
-                    <label for="inputState">Category</label>
-                    <select id="select_category" name="category" class="form-control">
+                    <label for="inputState">Categosry</label>
+                    <select id="update_category" name="category" class="form-control">
                         <option selected>Choose...</option>
                         <?php
 																foreach($categories as $category):
@@ -100,25 +100,109 @@
                 </div>
                 <div class="form-group subcategory">
                     <label for="inputState">Sub Category</label>
-                    <select id="sub_category" name="subcategory" class="form-control">
+                    <select id="update_sub_category" name="subcategory" class="form-control">
 
                     </select>
                 </div>
                 <div class="form-group 6">
                     <label for="inputPassword4">Quantity</label>
-                    <input type="text" class="form-control" name="qty" placeholder="" />
+                	<input type="text" id="b_qty" class="form-control" name="qty" placeholder="" />
+												<input type="hidden" id="b_borrowed" class="form-control" name="borrowed_qty" placeholder="" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary btn-add-book">
+                    <button type="button" class="btn btn-primary btn-update-book">
                         Save changes
                     </button>
                 </div>
                 </form>
             </div><!-- /.modal-body -->
 
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_borrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <!-- .modal-dialog -->
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <!-- .modal-content -->
+        <div class="modal-content">
+            <!-- .modal-header -->
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title "></h5>
+            </div>
+
+            <div class="modal-body">
+
+                <blockquote>
+                    <p class="mb-0 book_title"> </p>
+                    <footer class="author">
+
+                    </footer>
+                </blockquote>
+                <?php echo form_open('',array("class" =>'borrowForm')) ?>
+                <input type="hidden" class="book_id" name="b_id">
+                <input type="hidden" class="bbook_title" name="title">
+                <input type="hidden" class="bbook_qty" name="b_qty">
+                <input type="hidden" class="stud_id" name="s_id">
+                <input type="hidden" class="br_qty" name="br_qty">
+                <div class="form-group studentfrm">
+                    <div class="form-label-group">
+                        <select class="js-select js-states form-control" id="">
+                            <option value="" selected>Choose...</option>
+                        </select>
+                    </div>
+                </div>
+
+                </select>
+
+                <div class="student_info">
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="text" name="student_num" class="form-control placeholder-shown " required=""
+                                autofocus=""> <label for="inputUser">Student
+                                #</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="text" name="fullname" class="form-control placeholder-shown" required=""
+                                autofocus=""> <label for="inputUser">Student Name</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="text" name="address" class="form-control placeholder-shown" required=""
+                                autofocus=""> <label for="inputUser">Address</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="text" name="contact" class="form-control placeholder-shown" required=""
+                                autofocus=""> <label for="inputUser">Contact Number</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-success btn-block btn-borrow" type="button">Borrow</button>
+                    <button class="btn btn-lg btn-danger btn-new btn-block " type="button">Add Borrower</button>
+                    <button class="btn btn-lg btn-primary btn-save btn-block " type="button">Save Borrower Info</button>
+
+                </div>
+                </form>
+                <?php echo form_open('' ,array('class' => 'borrowfrm'))?>
+
+                </form>
+            </div><!-- /.modal-body -->
+            <!-- .modal-footer -->
+            <div class="modal-footer">
+
+            </div><!-- /.modal-footer -->
         </div>
     </div>
 </div>

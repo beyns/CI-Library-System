@@ -5,12 +5,13 @@ $(document).ready(() => {
     var max_field = 10;
     var wrapper = $(".form-group-input"); //Fields wrapper
 
+    $('.student_info').hide();
 
-    book_list = $("#booklist").DataTable({
+    borrower = $("#borrowersTable").DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: base_url + "/admin/book/books/booksTable",
+            url: base_url + "/admin/user/borrowers/borrowersTable",
             dataType: "json",
             // data: {_token : $('meta[name="token_"]').attr('content')},
             type: "POST"
@@ -29,38 +30,25 @@ $(document).ready(() => {
                 visible: true
             },
             {
-                data: "isbn",
+                data: "fullname",
                 render: function (data, type, row, meta) {
                     return textTruncate(type, data, 20);
                 }
             },
             {
-                data: "title",
+                data: "student_num",
                 render: function (data, type, row, meta) {
                     return textTruncate(type, data, 20);
                 }
             },
             {
-                data: "description",
+                data: "address",
                 render: function (data, type, row, meta) {
                     return textTruncate(type, data, 10);
                 }
             },
             {
-                data: "author",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
-            },
-
-            {
-                data: "category",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
-            },
-            {
-                data: "subcategory",
+                data: "contact",
                 render: function (data, type, row, meta) {
                     return textTruncate(type, data, 20);
                 }
@@ -99,6 +87,7 @@ $(document).ready(() => {
                 $.get(base_url + '/book/show', { id: id }).done(function (result) {
                     let parseResult = JSON.parse(result);
                     $(".bk-id").val(id);
+                    $("#bk-qty").val(parseResult.qty);
                     $(".bk-title").val(parseResult.title);
                     $(".booktitle").text(parseResult.title);
                     $(".description").text(parseResult.description);
@@ -130,10 +119,10 @@ $(document).ready(() => {
     }
 
 
-    $('#btn-borrow').click(function () {
-        $.post(base_url + '/books/booklist/borrow_book', $('.borrow_form').serialize()).done(function (result) {
-            console.log(result);
-        })
-    })
+    // $('#btn-borrow').click(function () {
+    //     $.post(base_url + '/books/booklist/borrow_book', $('.borrow_form').serialize()).done(function (result) {
+    //         console.log(result);
+    //     })
+    // })
 
 })

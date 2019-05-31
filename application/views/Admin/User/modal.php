@@ -12,12 +12,15 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="err_message"></div>
+                <?php echo validation_errors() ?>
                 <?php echo form_open('', array("class" => 'member_form')) ?>
 
                 <div class="form-row">
                     <div class="form-group  col-md-6 ">
                         <label for="inputEmail4">Firstname</label>
                         <input type="text" class="form-control" id="fname" name="fname">
+
                     </div>
                     <div class="form-group col-md-6 ">
                         <label for="inputPassword4">Lastname</label>
@@ -128,7 +131,7 @@
             <div class="modal-body">
                 <!-- <form class="frmbook"> -->
                 <?php echo form_open('',array('class' => 'editMmbrForm')) ?>
-                <input type="text" class="form-control id" name="id">
+                <input type="hidden" class="form-control id" name="id">
 
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Firstname</label>
@@ -154,7 +157,8 @@
                         <input type="email" disabled class="form-control email">
                     </div>
                 </div>
-                <div class="form-group row">
+               <div class="cpassword">
+               <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Password:</label>
                     <div class="col-sm-6">
                         <input type="text" disabled class="form-control pass">
@@ -166,6 +170,12 @@
                         <input type="text" disabled class="form-control cpass">
                     </div>
                 </div>
+               </div>
+                <div class="form-group chkc">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ckb7"> <label class="custom-control-label" for="ckb7">Change Password</label>
+                          </div>
+                        </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Role:</label>
                     <div class="col-sm-6">

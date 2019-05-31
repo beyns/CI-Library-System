@@ -123,12 +123,12 @@ class Book_Model extends CI_Model
 
     public function getSubCategoryByCategoryId($id)
     {
-        //SELECT `sub_category` FROM `book_sub_category` INNER JOIN book_category AS c ON b.id = book_sub_category.category_id WHERE b.title =  'Web Development'
-
-        $this->db->select('book_sub_category.id, book_category.category, sub_category');
-        $this->db->from('book_category');
-        $this->db->join('book_sub_category', 'book_category.id = book_sub_category.category_id');
-        $this->db->where('book_category.id', $id);
+        //SELECT `sub_category` FROM `book_category` INNER JOIN book_sub_category AS c ON b.id = book_sub_category.category_id WHERE b.title =  'Web Development'
+//SELECT `sub_category` FROM `book_sub_category` INNER JOIN book_category AS c ON book_sub_category.category_id = c.id WHERE book_sub_category.category_id = 1
+        $this->db->select('c.id, c.category, sc.sub_category');
+        $this->db->from('book_sub_category as sc');
+        $this->db->join('book_category AS c', 'sc.category_id = c.id');
+        $this->db->where('sc.category_id', $id);
         $query = $this->db->get();
 
         
@@ -144,6 +144,13 @@ class Book_Model extends CI_Model
     {
         $query = $this->db->get_where('books',array('id' => $id));
         return $query->row_array();
+    }
+
+    public function update_changes($data)
+    {
+         $id = $data['id'];
+        $query = $this->db->where('id',$id);
+        return $this->db->update('books', $data);
     }
 
     public function remove_book($id)

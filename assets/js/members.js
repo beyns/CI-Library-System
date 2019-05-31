@@ -4,6 +4,8 @@ $(document).ready(function () {
     var members_table;
     $('.cancel-btn').hide();
     $('.update-btn').hide();
+    $(".chkc").hide();
+    $('.cpassword').hide();
 
     members_table = $("#memberTable").DataTable({
         processing: true,
@@ -76,12 +78,12 @@ $(document).ready(function () {
                         "<button  data-id='" +
                         data +
                         "' class='btn btn-sm btn-icon btn-secondary  btn-modal' id='btn-modal-view' >  <i class='far fa-eye'></i></button>" +
-                        "<button data-id='" +
-                        data +
-                        "' class='btn btn-sm btn-icon btn-secondary btn-modal' id ='btn-modal-edit'>   <i class='fa fa-pencil-alt'></i></button>" +
-                        "<button data-id='" +
-                        data +
-                        "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-modal-del' href='#' id ='btn-modal-edit'><i class='far fa-trash-alt'></i></button>"
+                        "<button data-id='"
+                        // data +
+                        // "' class='btn btn-sm btn-icon btn-secondary btn-modal' id ='btn-modal-edit'>   <i class='fa fa-pencil-alt'></i></button>" +
+                        // "<button data-id='" +
+                        // data +
+                        // "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-modal-del' href='#' id ='btn-modal-edit'><i class='far fa-trash-alt'></i></button>"
                     );
 
                     ("Edit");
@@ -109,37 +111,6 @@ $(document).ready(function () {
                     $('#modal_edit').modal('show');
 
                 }
-                else if (btn_class == 'btn-modal-edit') {
-                    $(".id").val(id);
-                    $.get(base_url + '/book/show', { id: id }).done(function (result) {
-                        console.log(result);
-                        let parseResult = JSON.parse(result);
-                        $("#b_id").val(parseResult.id);
-                        $("#b_title").val(parseResult.title);
-                        $("#b_description").val(parseResult.description);
-                        $("#b_isbn").val(parseResult.isbn);
-                        $("#b_author").val(parseResult.author);
-                        $("#b_category").val(parseResult.category);
-                        $("#b_subcategory").val(parseResult.subcategory);
-                        $("#b_quantity").val(parseResult.qty);
-
-                    });
-                    $('#modal_edit').modal('show');
-                }
-
-                else {
-                    $(".id").val(id);
-                    $.get(base_url + '/book/show', { id: id }).done(function (result) {
-                        console.log(result);
-                        let parseResult = JSON.parse(result);
-                        $("#book_id").val(parseResult.id);
-                        $(".book_title").text(parseResult.title);
-                    });
-                    $('#modal_del').modal('show');
-                }
-
-
-
                 // $('#modal_view').modal('show');
             });
 
@@ -149,6 +120,9 @@ $(document).ready(function () {
                 $(".uname").prop('disabled', false);
                 $(".email").prop('disabled', false);
                 $(".role").prop('disabled', false);
+                $(".pass").prop('disabled', false);
+                $(".cpass").prop('disabled', false);
+                $(".chkc").show();
 
                 $('.edit-btn').hide();
 
@@ -192,21 +166,27 @@ $(document).ready(function () {
     }
 
 
-
+    $('#ckb7').change(function () {
+        $('.cpassword').toggle();
+    });
     $('#member_show').click(function () {
         $('#member_modal').modal('show');
     })
 
     $('#btn-member').click(function () {
 
-        $.post(base_url + '/member/add', $('.member_form').serialize()).done(function (result) {
+        $.post(base_url + '/admin/user/members/insert', $('.member_form').serialize()).done(function (result) {
+            console.log(result)
             $('#member_modal').modal('hide');
             members_table.ajax.reload();
+        }).fail(function (result) {
+            $('.err_message').html(result.responseJSON.message);
         });
     });
 
     $('#btn-update').click(function () {
-        $.post(base_url + '/member/add', $('.member_form').serialize()).done(function (result) {
+        $.post(base_url + '/admin/user/members/update', $('.member_form').serialize()).done(function (result) {
+            console.log(result);
             $('#modal_edit').modal('hide');
             members_table.ajax.reload();
         });

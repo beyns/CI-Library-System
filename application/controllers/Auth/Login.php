@@ -7,7 +7,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model(['Auth/Login_Model' => 'login_m']);
-        if ($this->session->userdata('users')) {
+        if ($this->session->userdata('members')) {
             redirect('admin/dashboard');
         }
     }
@@ -25,7 +25,7 @@ class Login extends CI_Controller
         $data = $this->login_m->validate($username,$password);
         if ($data) {
 
-            $this->session->set_userdata('users',$data);
+            $this->session->set_userdata('members',$data);
             $status_code = 200;
             $response = array('status' => $status_code, 'message' => 'success' );
 

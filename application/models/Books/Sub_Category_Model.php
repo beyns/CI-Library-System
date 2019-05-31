@@ -13,4 +13,9 @@ class Sub_Category_Model extends CI_Model
         $this->db->insert_batch('book_sub_category',$data);
     }
 
+    public function show_sub_category()
+    {
+        
+    }
+
 }

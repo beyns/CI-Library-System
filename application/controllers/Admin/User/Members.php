@@ -81,18 +81,53 @@ class Members extends CI_Controller
     public function insert()
     {
      
+        $this->form_validation->set_rules('fname', 'Firstname', 'required');
+        $this->form_validation->set_rules('lname', 'Lastname', 'required');
+        $this->form_validation->set_rules('uname', 'Username', 'required|is_unique[members.username]');
+        $this->form_validation->set_rules('email', 'Email',  'required|valid_email|is_unique[members.email]');
+        $this->form_validation->set_rules('pass', 'Password', 'trim|required|min_length[8]');
+        $this->form_validation->set_rules('cpass', 'Confirm Password',  'trim|required|matches[pass]');
+
         $data =  array(
             "firstname" => $this->input->post('fname'),
             "lastname" => $this->input->post('lname'),
             "email" => $this->input->post('email'),
             "username" => $this->input->post('uname'),
-            "password" => $this->input->post('pass'),
+            "password" => sha1($this->input->post('pass')),
             "role" => $this->input->post('role')
         );
         unset($data['csrf_test_name']);
 
 
+        $status_code = 200;
+        $response = array('status' => $status_code, 'message' => "User Successfully Added");
+        
+        if ($this->form_validation->run() == FALSE) {
+          
+            $status_code = 401;
+            $error_response = array('status' => $status_code, 'message' => validation_errors());
+            $this->load->view('admin/user/members');
+            return $this->output
+                    ->set_status_header($status_code)
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($error_response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        }
+       else {
+           
         $result = $this->member_m->insert_member($data);
+        if($result){
+
+            return $this->output
+             ->set_header('HTTP/1.1 200 OK')
+             ->set_status_header($status_code)
+             ->set_content_type('application/json')
+            ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        }
+
+       }
+
+
+        
         echo json_encode($result);
 
     }
@@ -108,8 +143,9 @@ class Members extends CI_Controller
 
     public function update()
     {
+        $data = $this->input->post();
         $id = $this->input->post('id');
-        $this->member_m->editMemberInfo($id);
+        $this->member_m->editMemberInfo();
         
         
     }

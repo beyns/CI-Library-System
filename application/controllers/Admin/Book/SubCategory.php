@@ -11,7 +11,7 @@ class SubCategory extends CI_Controller
 
     public function insert_sub_category()
     {
-        $category_id = $this->input->post('id');
+        $category_id = $this->input->post('c_id');
 
         $data  = [];
 
@@ -22,6 +22,7 @@ class SubCategory extends CI_Controller
             ];
         }
         $this->sub_cat_m->add_sub_category($data);
+        
     }
 
 }

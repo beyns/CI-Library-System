@@ -29,6 +29,12 @@ hello<?php $this->load->view('template/include_head.php') ?>
 									href="<?php echo base_url("/index.php/admin/book/books")?>">Book List</a>
 							
 							</div>
+							
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="<?php echo base_url("/books/borrowedlist")?>" >
+								Borrowed Book
+							</a>
 						</li>
 					</ul>
 				</div>

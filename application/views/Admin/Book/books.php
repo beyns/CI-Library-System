@@ -6,7 +6,7 @@
 <main class="app-main">
 	<div class="wrapper">
 		<div class="page">
-			<nav class="navbar navbar-expand-lg navbar-light bg-white"
+		<nav class="navbar navbar-expand-lg navbar-light bg-white"
 				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -17,7 +17,7 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item ">
-							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+							<a class="nav-link" href="<?php echo base_url('admin/dashboard')?>">Home <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item active dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -26,9 +26,9 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item"
-									href="<?php echo base_url("/index.php/admin/book/books")?>">Book List</a>
+									href="<?php echo base_url("admin/book/books")?>">Book List</a>
 								<a class="dropdown-item"
-									href="<?php echo base_url("/index.php/admin/book/category")?>">Category</a>
+									href="<?php echo base_url("admin/book/category")?>">Category</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -37,8 +37,8 @@
 								Users
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Members</a>
-								<a class="dropdown-item" href="#">Borrowers</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/members")?>">Members</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/borrowers")?>">Borrowers</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -47,8 +47,8 @@
 								Transactions
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Borrowed Books</a>
-								<a class="dropdown-item" href="#">Returnd Books</a>
+								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/borrowedbooks')?>">Borrowed Books</a>
+								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/returnedbooks')?>">Returnd Books</a>
 							</div>
 						</li>
 						<li class="nav-item ">
@@ -62,6 +62,7 @@
 					<div class="d-flex flex-column flex-md-row">
 						<p class="lead">
 							<span class="font-weight-bold">Books List</span>
+
 						</p>
 						<div class="ml-auto">
 							<!-- Button trigger modal -->
@@ -86,6 +87,8 @@
 										<div class="modal-body">
 											<!-- <form class="frmbook"> -->
 											<?php echo form_open('',array('class' => 'frmbook')) ?>
+											<input type="hidden" class="form-control barcode" name="barcode" id="inputPassword4"
+													placeholder="" />
 											<div class="form-group 6">
 												<label for="inputPassword4">Title</label>
 												<input type="text" class="form-control" name="title" id="inputPassword4"
@@ -112,7 +115,7 @@
 												placeholder="" />
 											<div class="form-group">
 												<label for="inputState">Category</label>
-												<select id="select_category" name="category" class="form-control">
+												<select id="select_category" name="category" class="form-control mb-2">
 													<option selected>Choose...</option>
 													<?php
 																foreach($categories as $category):
@@ -123,7 +126,10 @@
 																endforeach
 															?>
 												</select>
+												<a href="<?php echo base_url("admin/book/category")?>" class="mt-2">Add Category</a>
+
 											</div>
+
 											<div class="form-group subcategory">
 												<label for="inputState">Sub Category</label>
 												<select id="sub_category" name="subcategory" class="form-control">
@@ -132,7 +138,7 @@
 											</div>
 											<div class="form-group 6">
 												<label for="inputPassword4">Quantity</label>
-												<input type="text" class="form-control" name="qty" placeholder="" />
+												<input type="text" id="qty" class="form-control" name="qty" placeholder="" />
 											</div>
 											<!-- <div class="form-row">
 													<div class="form-group col-md-6">
@@ -164,7 +170,7 @@
 													Close
 												</button>
 												<button type="button" class="btn btn-primary btn-add-book">
-													Save changes
+													Add Book
 												</button>
 											</div>
 											</form>
@@ -186,7 +192,7 @@
 							<th scope="col">Author(s)</th>
 							<th scope="col">Category</th>
 							<th scope="col">Subcategory</th>
-							<th scope="col">Qty</th>
+							<th scope="col">Available</th>
 							<th scope="col">Borrowed Qty</th>
 							<th scope="col"></th>
 						</tr>

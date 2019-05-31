@@ -7,15 +7,26 @@ class Books extends CI_Controller
     {
         parent::__construct();
         $this->load->model(['Books/Book_Model' => 'book_m']);
+        $this->load->model(["Borrowers/Borrower_Model" => 'borrow_m']);
+        $this->load->model(["Books/Borrowed_Model" => 'borrowed_m']);
+
     }
 
     public function index()
     {
         $data = [
                     'categories' => $this->book_m->get_all_category(),
+                    "borrowers" =>  $this->borrow_m->get_borrowers()
                 ];
-
+          
         $this->load->view('admin/book/books',$data);
+
+    }
+
+
+    public function show_student()
+    {
+        echo json_encode(  $this->borrow_m->get_borrowers());
     }
 
     public function booksTable()
@@ -109,7 +120,12 @@ class Books extends CI_Controller
 
     public function update()
     {
+        $data = $this->input->post();
+        unset($data['csrf_test_name']);
 
+        $result =  $this->book_m->update_changes($data);
+        echo json_encode($result);
+        
     }
 
     public function destroy()
@@ -118,5 +134,53 @@ class Books extends CI_Controller
        $this->book_m->remove_book($id);
         
     }
+
+    
+    public function totalBooks()
+    {
+         $id = $this->input->get('id',TRUE);
+        $result = $this->borrowed_m->totalBorrowed($id);
+        // foreach ($result as $key => $value) {
+        //     echo $value;
+        // }
+        echo json_encode($result);
+    }
+    public function borrow()
+    {
+        $returned_Date = Date('Y-m-d', strtotime("+3 days"));
+        $book_id = $this->input->post('b_id');
+        $borrower_id = $this->input->post('s_id');
+        $temp = substr(md5(uniqid(rand(1,6))), 0, 4);
+        $code = 'COI-' . $temp . '-LMS';
+        $data = array(
+            "borrower_id" => $borrower_id,
+            "borrower_id" => $borrower_id,
+            "book_id" => $book_id,
+            "date_borrowed" => Date('Y-m-d'),
+            "due_date" =>  $returned_Date,
+            "date_returned" => '',
+            "borrowed_status" => 'unreturned',
+            "penalty" => ''
+        );
+        $result = $this->borrowed_m->borrow_book($data);
+        if ($result) {
+
+                $new_quantity = (int)$this->input->post('b_qty') - 1;
+                $id = $this->input->post('b_id');
+                $book_borrowed = (int)$this->input->post('br_qty')+1;
+    
+                $this->borrowed_m->update_book_quantity($id, $new_quantity,$book_borrowed);
+    
+          
+        }
+    }
+
+    public function allowedBooks()
+    {
+        $id = $this->input->get('s_id',TRUE);
+        $result = $this->borrow_m->getTotal($id);
+        echo json_encode($result);
+    }
+
 
 }

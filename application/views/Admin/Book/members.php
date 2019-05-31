@@ -6,17 +6,55 @@
 <main class="app-main">
 	<div class="wrapper">
 		<div class="page">
-			<nav class="page-navs">
-				<div class="nav-scroller">
-					<div class="nav nav-tabs">
-						<a class="nav-link " href="#">Home</a>
-						<a class="nav-link " href="<?php echo base_url("/index.php/admin/books")?>">Books <span class="badge">16</span></a>
-						<a class="nav-link active" href="#">Category</a>
-						<a class="nav-link" href="#">Members</a>
-						<a class="nav-link" href="#">Projects</a>
-						<a class="nav-link" href="#">Borrowers</a>
-						<a class="nav-link" href="#">Settings</a>
-					</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-white"
+				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item ">
+							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item active dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Books
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item"
+									href="<?php echo base_url("admin/book/books")?>">Book List</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url("admin/book/category")?>">Category</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Users
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/members")?>">Members</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/borrowers")?>">Borrowers</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Transactions
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/borrowedbooks')?>">Borrowed Books</a>
+								<a class="dropdown-item" href="#">Returnd Books</a>
+							</div>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href="#">Reports <span class="sr-only">(current)</span></a>
+						</li>
+					</ul>
 				</div>
 			</nav>
 			<div class="page-inner container">

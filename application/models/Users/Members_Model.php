@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Members_Model extends CI_Model
 {
@@ -20,7 +20,7 @@ class Members_Model extends CI_Model
     * @param string $sort_dir [description]
     * @param string $search_value [description]
     * @param boolean $headers_only [description]
-    * @param boolean $raw [description] 
+    * @param boolean $raw [description]
     */
 
     private function _getDataTableMembers($sort_col = 'm.username', $sort_dir = 'ASC', $search_value = "", $headers_only = FALSE, $raw = FALSE)
@@ -122,10 +122,10 @@ class Members_Model extends CI_Model
 
         $data = $raw_data;
 
-        $id = $data['id'];
-    
+        // $id = $data['id'];
+
         $this->db->insert('members', $data);
-    
+
 
     }
 
@@ -135,17 +135,17 @@ class Members_Model extends CI_Model
         return $query->row_array();
     }
 
-    public function editMemberInfo($id)
+    public function editMemberInfo($data=[])
     {
         unset($data['cpass']);
         unset($data['changePass']);
         $data['password'] = sha1($data['password']);
-        
+
         $id = $data['id'];
         $this->db->where('id',$id);
-        $this->db->update('members', $data);
-        
-        
+        return $this->db->update('members', $data);
+
+
     }
 
     public function removeMember($id)

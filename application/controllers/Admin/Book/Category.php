@@ -110,8 +110,14 @@ class Category extends CI_Controller
     public function get_category()
     {
         $id = $this->input->post('id');
-        $result = $this->book_m->getSubCategoryByCategoryId($id);
+        $result = $this->cat_m->get_category_name($id);
         echo json_encode($result);
     }
 
+    public function get_subcategory()
+    {
+        $id = $this->input->get('id', TRUE);
+        $result = $this->book_m->getSubCategoryByCategoryId($id);
+        echo json_encode($result);
+    }
 }

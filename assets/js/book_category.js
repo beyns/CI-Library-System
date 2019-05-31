@@ -56,10 +56,10 @@ $(document).ready(() => {
                     return (
                         "<button data-toggle='modal' data-id='" +
                         data +
-                        "' class='btn btn-danger btn-xs subCat'><i class='fas fa-plus'></i></button>" +
-                        "<button type='button' data-toggle='modal' data-id='" +
-                        data +
-                        "' class='btn  btn-xs btn-primary editUserInfo' id='editmodal'>Edit</button>"
+                        "' class='btn btn-danger btn-xs subCat'><i class='fas fa-plus'></i></button>"
+                        // "<button type='button' data-toggle='modal' data-id='" +
+                        // data +
+                        // "' class='btn  btn-xs btn-primary editUserInfo' id='editmodal'>Edit</button>"
                     );
 
                     ("Edit");
@@ -69,22 +69,29 @@ $(document).ready(() => {
         ],
         drawCallback: function () {
             $(".subCat").click(function () {
-                let id = $(this).data("id"),
-                    sub_category = $('.frm-grp-subcat');
-
-                $.post(base_url + "/admin/book/category/get_category", { id: id }).done(function (result) {
-
-                    var res = jQuery.parseJSON(result);
-
+                sub_category = $('.frm-grp-subcat');
+                var id = $(this).data("id");
+                $(".cid").val(id);
+                $(".id").val(id);
+                $.get(base_url + "/admin/book/category/get_subcategory", { id: id }).done(function (result) {
+                    console.log(result);
+                    var res = JSON.parse(result);
+                    console.log(res);
                     $.each(res, function (k, v) {
-                        $('.category').text(v.category);
+                        console.log(k);
+                        console.log(v.sub_category);
+                        // $(".id").val(v.id);
 
-                        $("#id").val(v.id);
+                        // console.log(v);
+                        // $('.category').text(v.category);
+                        // $(".c_id").val(v.id);
+
+                        // $("#id").val(v.id);
                         (sub_category).append(
                             '<div class="todo ">' +
                             ' <div class="custom-control custom-checkbox">' +
-                            '<input type="checkbox" class="custom-control-input" name="subcat[]" id="' + v.id + '">' +
-                            '<label class="custom-control-label" for="' + v.id + '">' + v.sub_category + '</label>' +
+                            '<input type="checkbox" class="custom-control-input" name="subcat[]" id="' + k + '">' +
+                            '<label class="custom-control-label" for="' + k + '">' + v.sub_category + '</label>' +
                             '</div>' +
                             '</div>'
 
@@ -132,11 +139,20 @@ $(document).ready(() => {
     }
 
 
+    // $('.btn_close').click(function () {
+    //     $('.frm-grp-subcat').remove();
+    //     $(".modal_subCat").modal('hide');
+    // });
 
     $('#btn-category').click(function () {
         // $.post(base_url + "/admin/book/category/add_book_category", $(".frm-category").serialize()).done(function (result) {
         $.post(base_url + "/category/add", $(".frm-category").serialize()).done(function (result) {
             $('.frm-category')[0].reset();
+            Swal.fire(
+                '',
+                'New Category Added',
+                'success'
+            )
             $(".modal_category").modal('hide');
             category_table.ajax.reload();
         }).fail(function (result) {
@@ -157,7 +173,14 @@ $(document).ready(() => {
     $('#btn-sub_category').click(function () {
         let data = $(".frm_sub_category").serialize();
         $.post(base_url + "/subcategory/add", data).done(function (result) {
-            console.log(result);
+            $('.frm_sub_category')[0].reset();
+            Swal.fire(
+                '',
+                'Sub Categories Added',
+                'success'
+            )
+            $(".modal_subCat").modal('hide');
+            category_table.ajax.reload();
         });
     });
 

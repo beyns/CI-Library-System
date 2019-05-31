@@ -6,7 +6,7 @@
 <main class="app-main">
 	<div class="wrapper">
 		<div class="page">
-			<nav class="navbar navbar-expand-lg navbar-light bg-white"
+		<nav class="navbar navbar-expand-lg navbar-light bg-white"
 				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -26,8 +26,9 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item"
-									href="<?php echo base_url("/index.php/admin/book/books")?>">Book List</a>
-								<a class="dropdown-item" href="#">Category</a>
+									href="<?php echo base_url("admin/book/books")?>">Book List</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url("admin/book/category")?>">Category</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -36,8 +37,8 @@
 								Users
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Members</a>
-								<a class="dropdown-item" href="#">Borrowers</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/members")?>">Members</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/user/borrowers")?>">Borrowers</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -46,7 +47,7 @@
 								Transactions
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Borrowed Books</a>
+								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/borrowedbooks')?>">Borrowed Books</a>
 								<a class="dropdown-item" href="#">Returnd Books</a>
 							</div>
 						</li>
@@ -136,7 +137,7 @@
 					</div>
 					<div class="modal-body">
 							<?php echo form_open('', array('class' => 'frm_sub_category'  ));?>
-						<input type="hidden" name="id" id="id" />
+							<input type="text" name="c_id" class="cid" />
 						<!--  -->
 						<div class="todo-list frm-grp-subcat">
 							<div class="todo-header category"> </div><!-- /.todo-header -->
@@ -152,7 +153,7 @@
 						<button class="btn btn-primary btn-xs" id="btn-fields" type="button"><i class="fas fa-plus"></i>
 						</button>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+							<button type="button" class="btn btn-secondary btn_close" >
 								Close
 							</button>
 							<button type="button" id="btn-sub_category" class="btn btn-primary">

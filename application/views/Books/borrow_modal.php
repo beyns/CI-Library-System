@@ -8,7 +8,10 @@
 
             <div class="modal-body">
             <?php echo form_open('', array('class' => 'borrow_form'))?>
+            <label for="">Book Id</label>
                 <input type="text" class="bk-id" name="book_id">
+                <input type="text" class="form-control" id="bk-qty" name="qty">
+
                 <!-- <input type="text" class="bk-title" name="title"> -->
                 <blockquote>
                     <p class="mb-0 booktitle"> </p>
@@ -91,7 +94,7 @@
                 <input type="hidden" class="form-control" id="b_id" name="id" placeholder="" />
                 <div class="form-group">
                     <label for="inputState">Category</label>
-                    <select id="select_category" name="category" class="form-control">
+                    <select id="select_category" id="b_category" name="category" class="form-control">
                         <option selected>Choose...</option>
                         <?php
 																foreach($categories as $category):

@@ -463,7 +463,21 @@ $config['csrf_exclude_uris'] = array(
     'admin/book/books/booksTable',
     'admin/book/books/destroy',
     'admin/user/members/insert',
-    'books/booklist/borrow_book'
+    'books/booklist/borrow_book',
+    'books/borrowedlist/borrowedTable',
+    'auth/login/login',
+    'admin/transaction/borrowedbooks/borrower',
+    'admin/transaction/borrowedbooks/borrowedTable',
+    'admin/user/borrowers/borrowersTable',
+    'admin/book/books/borrow',
+    'admin/transaction/borrowedbooks/update',
+    'admin/transaction/borrowedbooks',
+    'admin/transaction/returnedbooks/returnedTable',
+    'admin/dashboard/reportTable',
+    'admin/transaction/borrowedbooks/select',
+    'admin/book/books/update',
+    'admin/user/members/insert',
+    'admin/user/members/update',
 );
 
 /*
