@@ -6,7 +6,7 @@
 <main class="app-main">
 	<div class="wrapper">
 		<div class="page">
-		<nav class="navbar navbar-expand-lg navbar-light bg-white"
+			<nav class="navbar navbar-expand-lg navbar-light bg-white"
 				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -25,8 +25,7 @@
 								Books
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item"
-									href="<?php echo base_url("admin/book/books")?>">Book List</a>
+								<a class="dropdown-item" href="<?php echo base_url("admin/book/books")?>">Book List</a>
 								<a class="dropdown-item"
 									href="<?php echo base_url("admin/book/category")?>">Category</a>
 							</div>
@@ -38,7 +37,8 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="<?php echo base_url("admin/user/members")?>">Members</a>
-								<a class="dropdown-item" href="<?php echo base_url("admin/user/borrowers")?>">Borrowers</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url("admin/user/borrowers")?>">Borrowers</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -47,7 +47,8 @@
 								Transactions
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php echo base_url('admin/transaction/borrowedbooks')?>">Borrowed Books</a>
+								<a class="dropdown-item"
+									href="<?php echo base_url('admin/transaction/borrowedbooks')?>">Borrowed Books</a>
 								<a class="dropdown-item" href="#">Returnd Books</a>
 							</div>
 						</li>
@@ -66,32 +67,34 @@
 						</p>
 						<div class="ml-auto">
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary" id ="member_show">
+							<button type="button" class="btn btn-primary" id="member_show">
 								Add Book Category
 							</button>
 
-						
+
 						</div>
 					</div>
 				</header>
 
-                <div class="card">
-    <div class="card-body">
-        <table class="display table table-striped table-hover " id="borrowersTable">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Student Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Contact</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
+				<div class="card">
+					<div class="card-body">
+						<table class="display table table-striped table-hover " id="borrowersTable">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Student ID</th>
+									<th scope="col">Student Name</th>
+									<th scope="col">Address</th>
+									<th scope="col">Contact</th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
 
-        </table>
-    </div>
-</div>
+						</table>
+					</div>
+				</div>
+				<?php $this->load->view('admin/user/borrower_modal') ?>
+				<?php $this->load->view('admin/user/borrower_update') ?>
 			</div>
 		</div>
 	</div>

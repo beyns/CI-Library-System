@@ -132,4 +132,34 @@ class Borrower_Model extends CI_Model
 
         return $query->num_rows();
     }
+
+
+    public function show_book_borrowed($id)
+    {
+      //SELECT `borrower_id`, `title` FROM `borrowed_books` INNER JOIN borrowers as br ON borrowed_books.borrower_id = br.id INNER JOIN books as b ON borrowed_books.book_id = b.id WHERE borrower_id = 1
+      $this->db->select("b.title, br.fullname, bb.date_borrowed");
+      $this->db->from("borrowed_books as bb");
+      $this->db->join("borrowers as br " ,"bb.borrower_id = br.id");
+      $this->db->join("books as b " ,"bb.book_id = b.id");
+      $this->db->where("borrower_id", $id);
+      $this->db->where("borrowed_status", 'unreturned');
+
+       return $this->db->get()->result_array();
+    }
+
+    public function get_info($id)
+    {
+      $query = $this->db->get_where('borrowers',array('id' => $id));
+      return $query->row_array();
+    }
+
+    public function update_infos($data =[],$id)
+    {
+
+      $id = $data['id'];
+      $this->db->where('id', $id);
+     $this->db->update('borrowers', $data);
+     return $this->db->last_query();
+    }
+      
 }

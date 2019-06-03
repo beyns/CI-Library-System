@@ -8,12 +8,16 @@
 
             <div class="modal-body">
           <?php echo form_open('', array("class" =>"br_form"))?>
-                <input type="hidden" class="bid" id="idi" name="id">
-                <input type="hidden" class="bdate"  name="date">
-                <input type="hidden" class="abook"  name="abook">
-                <input type="hidden" class="bbqty"  name="bbqty">
+                <input type="text" class="bid" id="idi" name="id">
+                <input type="text" class="bdate"  name="date">
+                <input type="text" class="abook"  name="abook">
+                <input type="text" class="bbqty"  name="bbqty">
+                <input type="text" class="bname"  name="bname">
                 <!-- <input type="text" class="bname" id="id" name="id"> -->
 
+                <p class="font-weight-bold">Barcode: <span class="b_code"></span></p>
+                <p class="">Borrower Name: <span class="b_name"></span></p>
+                <p class="">Date Borrowed: <span class="br_date"></span></p>
                 <blockquote>
                     <small class="mb-0 bbooktitle">The Accidental Billionaires : The Founding of Facebook - A Tale of Sex, Money, Genius and Betrayal </small>
                     <footer class="author">

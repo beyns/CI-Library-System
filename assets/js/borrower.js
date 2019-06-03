@@ -68,9 +68,9 @@ $(document).ready(() => {
                     //           "<button class='btn btn-xs btn-danger delBtn' type='button' title='Delete' data-toggle='modal' data-target='#deleteCategoryModal' value='"+data+"'><span class='fa fa-trash'></span></button>" +
                     //           "</div>";
                     return (
-                        "<button  data-id='" +
-                        data +
-                        "' class='btn btn-sm btn-icon btn-secondary ' id='btn-modal-borrow' >  <i class='far fa-eye'></i></button>"
+                        "<button  data-id='" + data + "' class='btn btn-sm btn-icon btn-secondary borrower_view '  data-backdrop='static' data-keyboard='false' id='btn-modal-view'>  <i class='far fa-eye'></i></button>" +
+                        "<button  data-id='" + data + "' class='btn btn-sm btn-icon btn-secondary borrower_edit '   >  <i class='fa fa-pencil-alt'></i></button>"
+
                     );
 
                     ("Edit");
@@ -80,24 +80,50 @@ $(document).ready(() => {
         ],
         drawCallback: function () {
 
-            $('#btn-modal-borrow').click(function () {
+            $('.borrower_view').click(function () {
                 var id = $(this).data("id");
+                $('.br_id').val(id);
+                $.post(base_url + '/admin/user/borrowers/show_books', $('.br_form').serialize()).done(function (result) {
+                    var res = JSON.parse(result);
+                    $.each(res, function (k, v) {
+                        console.log(v.title);
+                        console.log(v.date_borrowed);
+                        $('.media-body').append(
 
-                $(".bk-id").val(id);
-                $.get(base_url + '/book/show', { id: id }).done(function (result) {
-                    let parseResult = JSON.parse(result);
-                    $(".bk-id").val(id);
-                    $("#bk-qty").val(parseResult.qty);
-                    $(".bk-title").val(parseResult.title);
-                    $(".booktitle").text(parseResult.title);
-                    $(".description").text(parseResult.description);
-                    $(".author").text(parseResult.author);
-                    $(".category").text(parseResult.category);
-                    $(".isbn").text(parseResult.isbn);
+                            ' <p class="mb-0">' +
+                            v.title
+                            + ' </p> <span class="timeline-date">' +
+                            v.date_borrowed
+                            + '</span >'
+                        );
+                        // $("#result").append(k + ": " + v.title + '<br>');
+                    });
                 });
-                $('#modal_borrow').modal('show');
+                $('#modal_view').modal({ backdrop: 'static', keyboard: false, show: true })
             }
             );
+
+            $('.borrower_edit').click(function () {
+                var id = $(this).data("id");
+                $('.br_id').val(id);
+                $.get(base_url + '/admin/user/borrowers/edit', { id: id }).done(function (result) {
+                    var res = JSON.parse(result);
+
+                    $('.student_num').val(res.student_num);
+                    $('.fullname').val(res.fullname);
+                    $('.address').val(res.address);
+                    $('.contact').val(res.contact);
+                    $("#modal_borrower_info").modal('show');
+
+                })
+            })
+            $('#btn-cancel').click(function () {
+                $('#modal_view').modal('hide');
+
+                $(".media-body").empty();
+            })
+
+
         },
         order: []
     });
@@ -117,7 +143,23 @@ $(document).ready(() => {
         // DO NOT DELETE WILL BE USED LATER ON...
         /*return type === 'display' && data.length > length ? '<span ' + ((isLink) ? 'class="cursor-pointer truncated-text"' : "") + ' data-text="'+data+'">'+data.substr( 0, length - 2 )+'...</span>' : data;*/
     }
+    $('.btn-br-update').click(function () {
 
+        $.post(base_url + '/admin/user/borrowers/update', $('.student_form').serialize()).done(function (result) {
+            Swal.fire(
+                'Changes saved',
+                'success'
+            )
+            console.log(result);
+        }).fail(function (result) {
+            Swal.fire(
+                'Unable to save changes',
+                // result.responseJSON.message,
+                'error'
+            )
+            console.log(result);
+        })
+    })
 
     // $('#btn-borrow').click(function () {
     //     $.post(base_url + '/books/booklist/borrow_book', $('.borrow_form').serialize()).done(function (result) {

@@ -136,44 +136,44 @@
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Firstname</label>
                     <div class="col-sm-6">
-                        <input type="text" disabled class="form-control fname">
+                        <input type="text" disabled class="form-control fname" name="fname">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Lastname</label>
                     <div class="col-sm-6">
-                        <input type="text" disabled class="form-control lname">
+                        <input type="text" disabled class="form-control lname" name="lname">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Username:</label>
                     <div class="col-sm-6">
-                        <input type="text" disabled class="form-control uname">
+                        <input type="text" disabled class="form-control uname"  name="uname">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
                     <div class="col-sm-6">
-                        <input type="email" disabled class="form-control email">
+                        <input type="email" disabled class="form-control email" name="email">
                     </div>
                 </div>
                <div class="cpassword">
                <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Password:</label>
                     <div class="col-sm-6">
-                        <input type="text" disabled class="form-control pass">
+                        <input type="password" disabled class="form-control pass" name="pass">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Confirm Password:</label>
                     <div class="col-sm-6">
-                        <input type="text" disabled class="form-control cpass">
+                        <input type="password" disabled class="form-control cpass" name="cpass">
                     </div>
                 </div>
                </div>
                 <div class="form-group chkc">
                           <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="ckb7"> <label class="custom-control-label" for="ckb7">Change Password</label>
+                            <input type="checkbox" class="custom-control-input" name="changepass" value="" id="ckb7"> <label class="custom-control-label" for="ckb7">Change Password</label>
                           </div>
                         </div>
                 <div class="form-group row">

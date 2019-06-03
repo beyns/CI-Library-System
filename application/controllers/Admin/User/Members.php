@@ -143,11 +143,90 @@ class Members extends CI_Controller
 
     public function update()
     {
-        $data = $this->input->post();
+
+        $this->form_validation->set_rules('fname', 'Firstname', 'required');
+        $this->form_validation->set_rules('lname', 'Lastname', 'required');
+        $this->form_validation->set_rules('uname', 'Username', 'required');
+        $this->form_validation->set_rules('email', 'Email',  'required|valid_email|callback_email_check');
+        
+         if ($this->input->post('changepass')) {
+            $this->form_validation->set_rules('pass', 'Password', 'trim|required|min_length[8]');
+            $this->form_validation->set_rules('cpass', 'Confirm Password',  'trim|required|matches[pass]');
+         }
+        //  else {
+        //      echo ' false';
+        //  }
+
+        $data = array(
+            'firstname' => $this->input->post('fname'),
+            'lastname' => $this->input->post('lname'),
+            'username' => $this->input->post('uname'),
+            'email' => $this->input->post('email'),
+            'password' => $this->input->post('pass'),
+            'role' => $this->input->post('role'),
+        );
+
+        unset($data['csrf_test_name']);
         $id = $this->input->post('id');
-        $this->member_m->editMemberInfo();
+        $status_code = 200;
         
-        
+        $response = array('status' => $status_code, 'message' => "User Successfully Updated");
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $status_code = 401;
+            $error_response = array('status' => $status_code, 'message' => validation_errors());
+            return $this->output
+                    ->set_status_header($status_code)
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($error_response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+
+        }
+        else {
+
+            $result = $this->member_m->editMemberInfo($data,$id);
+            return $this->output
+             ->set_header('HTTP/1.1 200 OK')
+             ->set_status_header($status_code)
+             ->set_content_type('application/json')
+            ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        }
+
     }
+
+
+    public function email_check($str)
+    {
+        $id = $this->input->post('id');
+        $result = $this->db->get_where('members', array('email' => $str));
+        // if ($result->num_rows > 0) {
+          
+            $result_id = $result->row('id');
+
+            # code...
+        // }
+
+
+            if ($id == $result_id) //inupdate ibang field maliban s sariling email
+            {
+                
+                return TRUE;
+                    
+            }
+            elseif ( $result_id == NULL) //inupdate ibang field maliban s sariling email
+            {
+
+                return TRUE;
+                    
+            }
+             else
+             {
+                 $this->form_validation->set_message('email_check', 'Email is already taken');
+                 return FALSE;
+                    
+             }
+    }
+
+   
 
 }

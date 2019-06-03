@@ -176,19 +176,48 @@ $(document).ready(function () {
     $('#btn-member').click(function () {
 
         $.post(base_url + '/admin/user/members/insert', $('.member_form').serialize()).done(function (result) {
+            $('.member_form')[0].reset();
             console.log(result)
+            Swal.fire(
+                '',
+                'User Added',
+                'success'
+            )
             $('#member_modal').modal('hide');
             members_table.ajax.reload();
         }).fail(function (result) {
-            $('.err_message').html(result.responseJSON.message);
+            $('.member_form')[0].reset();
+            Swal.fire(
+                '',
+                result.responseJSON.message,
+                'error'
+            )
+            //   $('.err_message').html();
         });
     });
 
+    $('#ckb7').change(function () {
+        if ($(this).prop('checked')) {
+            $(this).val('true');
+        } else {
+            $(this).val('false');
+        }
+    });
     $('#btn-update').click(function () {
-        $.post(base_url + '/admin/user/members/update', $('.member_form').serialize()).done(function (result) {
+
+
+
+        $.post(base_url + '/admin/user/members/update', $('.editMmbrForm').serialize()).done(function (result) {
             console.log(result);
+            $('.editMmbrForm')[0].reset();
             $('#modal_edit').modal('hide');
             members_table.ajax.reload();
+        }).fail(function (result) {
+            Swal.fire(
+                '',
+                result.responseJSON.message,
+                'error'
+            )
         });
     })
 });

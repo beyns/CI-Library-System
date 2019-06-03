@@ -135,13 +135,12 @@ class Members_Model extends CI_Model
         return $query->row_array();
     }
 
-    public function editMemberInfo($data=[])
+    public function editMemberInfo($data=[],$id)
     {
         unset($data['cpass']);
         unset($data['changePass']);
         $data['password'] = sha1($data['password']);
 
-        $id = $data['id'];
         $this->db->where('id',$id);
         return $this->db->update('members', $data);
 

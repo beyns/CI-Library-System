@@ -104,10 +104,41 @@ class Books extends CI_Controller
 
     public function insert()
     {
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('isbn', 'ISBN', 'required');
+        $this->form_validation->set_rules('author', 'Author', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required');
+        $this->form_validation->set_rules('category', 'Category', 'required');
+        $this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
+        $this->form_validation->set_rules('qty', 'Quantity', 'required');
+
         $data = $this->input->post();
         unset($data['csrf_test_name']);
-        $result = $this->book_m->add_book($data);
-        echo json_encode($result);
+
+        $new_book =  $this->input->post('title');
+        $status_code = 201;
+        $response = array('status' => $status_code, 'message' =>  "$new_book" . ' ' . "Added");
+
+        if ($this->form_validation->run() == FALSE) {
+            
+            $status_code = 401;
+            $error_response = array('status' => $status_code, 'message' => validation_errors());
+            return $this->output
+                    ->set_status_header($status_code)
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($error_response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+
+        }
+        else {
+           
+            $result = $this->book_m->add_book($data);
+            return $this->output
+             ->set_header('HTTP/1.1 200 OK')
+             ->set_status_header($status_code)
+             ->set_content_type('application/json')
+            ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        }
+    
     }
 
     public function show()
@@ -120,11 +151,38 @@ class Books extends CI_Controller
 
     public function update()
     {
+        
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('isbn', 'ISBN', 'required');
+        $this->form_validation->set_rules('author', 'Author', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required');
+        $this->form_validation->set_rules('category', 'Category', 'required');
+        $this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
+        $this->form_validation->set_rules('qty', 'Quantity', 'required');
+
         $data = $this->input->post();
         unset($data['csrf_test_name']);
 
-        $result =  $this->book_m->update_changes($data);
-        echo json_encode($result);
+        $status_code = 201;
+        $response = array('status' => $status_code, 'message' =>  "Changes Saved");
+
+        if ($this->form_validation->run() == FALSE) {
+            $status_code = 401;
+            $error_response = array('status' => $status_code, 'message' => validation_errors());
+            return $this->output
+                    ->set_status_header($status_code)
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($error_response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        }
+        else{
+            $result =  $this->book_m->update_changes($data);
+            return $this->output
+             ->set_header('HTTP/1.1 200 OK')
+             ->set_status_header($status_code)
+             ->set_content_type('application/json')
+            ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        }
+       
         
     }
 

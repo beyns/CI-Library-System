@@ -82,5 +82,61 @@ class Borrowers extends CI_Controller
             echo json_encode($result);
         }
     }
-   
+
+    public function show_books()
+    {
+       $id = $this->input->post('id');
+       $data = $this->borrow_m->show_book_borrowed($id);
+
+       echo json_encode($data);
+    }
+
+    public function edit()
+    {
+        $id = $this->input->get('id',TRUE);
+        $result = $this->borrow_m->get_info($id);
+        echo json_encode($result);
+    }
+
+    public function update()
+    {
+        $this->form_validation->set_rules('student_num', 'Student Number', 'required');
+        $this->form_validation->set_rules('fullname', 'Fullname', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('contact', 'Contact',  'required');
+
+
+        
+        $id = $this->input->post('id');
+        $data = $this->input->post();
+
+        $status_code = 200;
+
+        $response = array('status' => $status_code, 'message' => "Changes Saved");
+       
+        unset($data['csrf_test_name']);
+        $result = $this->borrow_m->update_infos($data,$id);
+        echo json_encode($result);
+        // if ($this->form_validation->run() == FALSE) {
+
+        //     $status_code = 401;
+        //     $error_response = array('status' => $status_code, 'message' => validation_errors());
+        //     return $this->output
+        //             ->set_status_header($status_code)
+        //             ->set_content_type('application/json')
+        //             ->set_output(json_encode($error_response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+
+        // }
+        // else {
+
+        //     $result = $this->borrow_m->update_infos($data,$id);
+        //     echo json_encode($result);
+        //   return $this->output
+        //    ->set_header('HTTP/1.1 200 OK')
+        //    ->set_status_header($status_code)
+        //    ->set_content_type('application/json')
+        //   ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        // }
+
+    }
 }

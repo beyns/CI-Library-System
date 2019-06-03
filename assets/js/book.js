@@ -273,11 +273,17 @@ $(document).ready(() => {
         $.post(base_url + '/admin/book/books/update', $('.editfrmbook').serialize()).done(function (result) {
             Swal.fire(
                 '',
-                'Changes Save',
+                result.message,
                 'success'
             )
             $('#modal_edit').modal('hide');
             book_table.ajax.reload();
+        }).fail(function (result) {
+            Swal.fire(
+                'Unable to save changes',
+                result.responseJSON.message,
+                'error'
+            )
         });
     })
     $('#show-bookModal').click(function () {
@@ -298,14 +304,21 @@ $(document).ready(() => {
 
     $('.btn-add-book').click(function () {
         $.post(base_url + '/admin/book/books/insert', $('.frmbook').serialize()).done(function (result) {
+            console.log(result);
             $('.frmbook')[0].reset();
             book_table.ajax.reload();
             Swal.fire(
                 '',
-                'Book Added',
+                result.message,
                 'success'
             )
             $('.modal_book').modal('hide');
+        }).fail(function (result) {
+            Swal.fire(
+                'Failed To Add Book',
+                result.responseJSON.message,
+                'error'
+            )
         });
     });
     $('#select_category').change(function () {
@@ -374,17 +387,7 @@ $(document).ready(() => {
             return obj;
         });
         $(".js-select").select2({
-            // tags: true,
-            // insertTag: function (data, tag) {
-            //     tag.text = "Add: " + tag.text;
-            //     data.push(tag);
-            // },
-            placeholder: "Select Student",
-            language: {
-                noResults: function () {
-                    return "No Result Found";
-                }
-            },
+
             data: data,
 
         }).on("change", function (e) {
@@ -405,7 +408,7 @@ $(document).ready(() => {
                             'User still have unreturned Books',
                             'error'
                         )
-                        $(".js-select").select2();
+                        // $(".js-select").select2();
                         $('.btn-borrow').attr('disabled', true);
                     } else {
                         $('.btn-borrow').attr('disabled', false);
@@ -422,7 +425,7 @@ $(document).ready(() => {
         })
     })
     $('.btn-new').click(function () {
-        $('.js-select2').empty();
+        // $('.js-select2').empty();
         $(".studentfrm").hide();
         $('.student_info').show();
         $('.btn-save').show();

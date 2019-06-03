@@ -33,7 +33,7 @@ class Borrowed_Model extends CI_Model
     {
       // $query = $this->db->get_where('borrowed_books', array('id' => $id));
       // return $query->row_array();
-      $this->db->select("bb.id, b.qty, b.borrowed_qty, br.fullname, b.title, bb.date_borrowed, bb.due_date, bb.date_returned, bb.borrowed_status, bb.penalty");
+      $this->db->select("bb.id, b.barcode, b.qty, b.borrowed_qty, br.fullname, b.title, bb.date_borrowed, bb.due_date, bb.date_returned, bb.borrowed_status, bb.penalty");
       $this->db->from("borrowed_books AS bb");
       $this->db->join("books AS b", "bb.book_id = b.id");
       $this->db->join("borrowers AS br", "bb.borrower_id =  br.id");

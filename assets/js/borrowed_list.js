@@ -126,13 +126,17 @@ $(document).ready(function () {
 
                     $resultParse = JSON.parse(result);
                     console.log($resultParse);
-                    $(".bname").val($resultParse.borrower_name);
+                    $(".bname").val($resultParse.fullname);
                     $(".bdate").val($resultParse.date_borrowed);
                     $(".bbooktitle").text($resultParse.title);
                     $(".bbooktitle").text($resultParse.title);
+                    $(".b_name").text($resultParse.fullname);
+                    $(".br_date").text($resultParse.date_borrowed);
+                    $(".b_code").text($resultParse.barcode);
                     $(".fls1").val($resultParse.borrowed_status).change();
                     $(".abook").val($resultParse.qty);
                     $(".bbqty").val($resultParse.borrowed_qty);
+
 
                 })
                 $('#borrowed_view').modal('show');
@@ -180,14 +184,21 @@ $(document).ready(function () {
     $(".btn-update").click(function () {
         var frm = $('.br_form').serialize();
         $.post('/admin/transaction/borrowedbooks/update', frm).done(function (result) {
+            console.log(result);
             Swal.fire(
-                '',
                 'Book Returned',
+                result.message,
                 'success'
             )
             borrowed_table.ajax.reload();
 
             $('#borrowed_view').modal('hide');
+        }).fail(function (result) {
+            Swal.fire(
+                'Book Returned',
+                result.text.message,
+                'success'
+            )
         });
     });
 })
