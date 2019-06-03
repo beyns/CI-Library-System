@@ -95,7 +95,7 @@
                 </div><!-- /.modal-body -->
                 <!-- .modal-footer -->
             </div>
-
+</form>
         </div>
     </div>
 </div>

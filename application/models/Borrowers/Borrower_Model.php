@@ -158,8 +158,7 @@ class Borrower_Model extends CI_Model
 
       $id = $data['id'];
       $this->db->where('id', $id);
-     $this->db->update('borrowers', $data);
-     return $this->db->last_query();
+     return $this->db->update('borrowers', $data);
     }
       
 }

@@ -154,7 +154,7 @@ $(document).ready(() => {
         }).fail(function (result) {
             Swal.fire(
                 'Unable to save changes',
-                // result.responseJSON.message,
+                result.responseJSON.message,
                 'error'
             )
             console.log(result);
