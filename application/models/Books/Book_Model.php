@@ -125,9 +125,8 @@ class Book_Model extends CI_Model
     {
         //SELECT `sub_category` FROM `book_category` INNER JOIN book_sub_category AS c ON b.id = book_sub_category.category_id WHERE b.title =  'Web Development'
 //SELECT `sub_category` FROM `book_sub_category` INNER JOIN book_category AS c ON book_sub_category.category_id = c.id WHERE book_sub_category.category_id = 1
-        $this->db->select('c.id, c.category, sc.sub_category');
+        $this->db->select('sc.id, sc.category_id, sc.sub_category');
         $this->db->from('book_sub_category as sc');
-        $this->db->join('book_category AS c', 'sc.category_id = c.id');
         $this->db->where('sc.category_id', $id);
         $query = $this->db->get();
 

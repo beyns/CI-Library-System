@@ -105,12 +105,12 @@ class Books extends CI_Controller
     public function insert()
     {
         $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('isbn', 'ISBN', 'required');
+        $this->form_validation->set_rules('isbn', 'ISBN', 'required|max_length[10]|min_length[2]');
         $this->form_validation->set_rules('author', 'Author', 'required');
-        $this->form_validation->set_rules('description', 'Description', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required|max_length[100]|min_length[50]');
         $this->form_validation->set_rules('category', 'Category', 'required');
         $this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
-        $this->form_validation->set_rules('qty', 'Quantity', 'required');
+        $this->form_validation->set_rules('qty', 'Quantity', 'required|max_length[10]|min_length[2]');
 
         $data = $this->input->post();
         unset($data['csrf_test_name']);
@@ -225,7 +225,8 @@ class Books extends CI_Controller
 
                 $new_quantity = (int)$this->input->post('b_qty') - 1;
                 $id = $this->input->post('b_id');
-                $book_borrowed = (int)$this->input->post('br_qty')+1;
+                $book_borrowed = (int)$this->input->post('br_qty') + 1;
+                echo $book_borrowed;
     
                 $this->borrowed_m->update_book_quantity($id, $new_quantity,$book_borrowed);
     

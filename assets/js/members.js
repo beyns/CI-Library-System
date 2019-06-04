@@ -139,9 +139,11 @@ $(document).ready(function () {
 
 
                 $('.cancel-btn').hide();
+                $('.chkc').toggle();
                 $('.update-btn').hide();
 
                 $('.edit-btn').show();
+                $('#modal_edit').modal('hide');
 
             })
 

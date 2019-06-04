@@ -480,6 +480,10 @@ $config['csrf_exclude_uris'] = array(
     'admin/user/members/update',
     'admin/user/borrowers/show_books',
     'admin/user/borrowers/update',
+    'admin/user/borrowers/remove_borrower',
+    'subcategory/add',
+    'admin/book/category',
+    'admin/book/subcategory/remove'
 );
 
 /*

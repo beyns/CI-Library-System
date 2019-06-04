@@ -18,6 +18,11 @@ class BorrowedBooks extends CI_Controller
 
     public function borrower()
     {
+        $this->form_validation->set_rules('student_num', 'Student Number', 'required|regex_match[/^[0-9]{8}$/]|is_unique[borrowers.student_num]');
+        $this->form_validation->set_rules('fullname', 'Fullname', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('contact', 'Contact',  'required|regex_match[/^[0-9]{11}$/]|max_length[11]|min_length[10]|greater_than[0]');
+
         $data = $this->input->post();
         $borrower_name = $this->input->post('fullname');
 
@@ -28,9 +33,31 @@ class BorrowedBooks extends CI_Controller
          unset($data['br_qty']);
          unset($data['b_qty']);
          unset($data['title']);
-        $result = $this->borrow_m->new_borrower($data);
 
-        echo json_encode($result);
+         $status_code = 200;
+         $response = array('status' => $status_code, 'message' => "Changes Saved");
+         
+         if ($this->form_validation->run() == FALSE) {
+            
+            $status_code = 401;
+            $error_response = array('status' => $status_code, 'message' => validation_errors());
+            return $this->output
+                    ->set_status_header($status_code)
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($error_response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+
+         }
+         else{
+
+            $result = $this->borrow_m->new_borrower($data);
+         
+            return $this->output
+             ->set_header('HTTP/1.1 200 OK')
+             ->set_status_header($status_code)
+             ->set_content_type('application/json')
+            ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+         }
+
 
         // if ($result) {
         //     // // $book_qty = $this->input->post('qty') - 1;
@@ -77,7 +104,7 @@ class BorrowedBooks extends CI_Controller
          $penalty = 20;
          
          $new_quantity = (int)$this->input->post('abook') + 1;
-         $id = $this->input->post('b_id');
+         $bkid = $this->input->post('bkid');
          $book_borrowed = (int)$this->input->post('bbqty')- 1;
          
          $borrower = $this->input->post('bname'); 
@@ -93,32 +120,36 @@ class BorrowedBooks extends CI_Controller
             $total_penalty = $exceed_days * $penalty;
 
             $result = $this->borrow_m->update_status($id,$status,date('Y-m-d'),$total_penalty);
-            if ($result) {
-                $update = $this->borrowed_m->update_book_quantity($id, $new_quantity,$book_borrowed);
+
+              if ($result) {
+                $update = $this->borrowed_m->update_book_quantity($bkid, $new_quantity,$book_borrowed);
                 $response = array('status' => $status_code, 'message' =>  "Borrower" .'  ' ."$borrower" . ' ' . "have a penalty of " .'' .$total_penalty );
-                
+               
                 return $this->output
                 ->set_header('HTTP/1.1 200 OK')
                 ->set_status_header($status_code)
                 ->set_content_type('application/json')
                ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
-            }
+
+              }
         
          }
-
+         else {
             $no_penalty = "No Penalty";
             $borrower = $this->input->post('bname'); 
 
             $result = $this->borrow_m->update_status($id,$status,date('Y-m-d'),$no_penalty);
 
-            $update=  $this->borrowed_m->update_book_quantity($id, $new_quantity,$book_borrowed);
-            $response = array('status' => $status_code, 'message' =>  "Borrower" . "$borrower" . ' ' . "have no penalty" );
+            $update=  $this->borrowed_m->update_book_quantity($bkid, $new_quantity,$book_borrowed);
+             $response = array('status' => $status_code, 'message' =>  "Borrower" . "$borrower" . ' ' . "have no penalty" );
 
-               return $this->output
-               ->set_header('HTTP/1.1 200 OK')
-               ->set_status_header($status_code)
-               ->set_content_type('application/json')
-              ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+                return $this->output
+                ->set_header('HTTP/1.1 200 OK')
+                ->set_status_header($status_code)
+                ->set_content_type('application/json')
+               ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+         }
+          
 
       
 

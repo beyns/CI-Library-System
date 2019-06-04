@@ -100,10 +100,10 @@ class Borrowers extends CI_Controller
 
     public function update()
     {
-        $this->form_validation->set_rules('student_num', 'Student Number', 'required');
+        $this->form_validation->set_rules('student_num', 'Student Number', 'required|regex_match[/^[0-9]{8}$/]');
         $this->form_validation->set_rules('fullname', 'Fullname', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required');
-        $this->form_validation->set_rules('contact', 'Contact',  'required');
+        $this->form_validation->set_rules('contact', 'Contact',  'required|regex_match[/^[0-9]{11}$/]|max_length[11]|min_length[10]|greater_than[0]');
 
         $id = $this->input->post('id');
         $data = $this->input->post();
@@ -134,6 +134,13 @@ class Borrowers extends CI_Controller
            ->set_content_type('application/json')
           ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
         }
+
+    }
+
+    public function remove_borrower()
+    {
+        $id = $this->input->post('id');
+        $this->borrow_m->remove($id);
 
     }
 }

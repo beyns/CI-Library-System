@@ -8,12 +8,12 @@
 
             <div class="modal-body">
           <?php echo form_open('', array("class" =>"br_form"))?>
-                <input type="text" class="bid" id="idi" name="id">
-                <input type="text" class="bdate"  name="date">
-                <input type="text" class="abook"  name="abook">
-                <input type="text" class="bbqty"  name="bbqty">
-                <input type="text" class="bname"  name="bname">
-                <!-- <input type="text" class="bname" id="id" name="id"> -->
+                <input type="hidden" class="bid" id="idi" name="id">
+                <input type="hidden" class="bdate"  name="date">
+                <input type="hidden" class="abook"  name="abook">
+                <input type="hidden" class="bbqty"  name="bbqty">
+                <input type="hidden" class="bname"  name="bname">
+                <input type="hidden" class="bbookid" id="id" name="bkid">
 
                 <p class="font-weight-bold">Barcode: <span class="b_code"></span></p>
                 <p class="">Borrower Name: <span class="b_name"></span></p>

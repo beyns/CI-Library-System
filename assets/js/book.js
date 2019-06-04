@@ -358,26 +358,7 @@ $(document).ready(() => {
             book_table.ajax.reload();
         })
     })
-    $('.btn-save').click(function () {
-        var frm = $(".borrowForm").serialize();
-        $.post(base_url + '/admin/transaction/borrowedbooks/borrower', frm).done(function (result) {
 
-            Swal.fire(
-                '',
-                'Successfully Added',
-                'success'
-            )
-            $('.btn-save').hide();
-            $('.btn-new').show();
-            $('.btn-borrow').show();
-            $(".studentfrm").show();
-            $('.student_info').hide();
-            $(".borrowForm")[0].reset();
-
-
-        })
-        // $(".js-select").trigger('change');
-    })
 
     $.get(base_url + '/admin/book/books/show_student').done(function (result) {
         var data = $.map(JSON.parse(result), function (obj) {
@@ -404,14 +385,16 @@ $(document).ready(() => {
                     console.log(v.count);
                     if (borrowed_books == allowed_books) {
                         Swal.fire(
-                            '',
+                            'Unable to borrow',
                             'User still have unreturned Books',
                             'error'
                         )
                         // $(".js-select").select2();
                         $('.btn-borrow').attr('disabled', true);
+                        $('.btn-new').hide();
                     } else {
                         $('.btn-borrow').attr('disabled', false);
+                        $('.btn-new').hide();
 
                     }
 
@@ -421,6 +404,8 @@ $(document).ready(() => {
             // $('.js-select').val([]);
             if (obj) {
                 $('.btn-borrow').show();
+            } else {
+                $('.btn-new').hide();
             }
         })
     })
@@ -438,14 +423,23 @@ $(document).ready(() => {
         $.post(base_url + '/admin/book/books/borrow', frm).done(function (result) {
             $(".borrowForm")[0].reset();
             $('#modal_borrow').modal('hide');
+
             book_table.ajax.reload();
             Swal.fire(
                 '',
                 'Successfully Borrowed',
                 'success'
             )
+            $('.btn-new').show();
+            $('.btn-borrow').hide();
+
         })
+        $(".js-select").val([]).trigger("change");
+
     })
 
-
+    $('.btn-xcancel').click(function () {
+        $('#modal_borrow').modal('hide');
+        window.location.reload()
+    })
 })

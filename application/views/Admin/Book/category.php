@@ -137,20 +137,21 @@
 					</div>
 					<div class="modal-body">
 							<?php echo form_open('', array('class' => 'frm_sub_category'  ));?>
-							<input type="text" name="c_id" class="cid" />
+							<input type="hidden" name="c_id" class="cid" />
+							<input type="hidden" name="sc_id" class="sc_id" />
 						<!--  -->
 						<div class="todo-list frm-grp-subcat">
 							<div class="todo-header category"> </div><!-- /.todo-header -->
-							<input type="checkbox" class="custom-control-input ccc">
 						</div>
+					
 						<div class="form-group-input ">
 							<div class="form-group ">
 								<input type="text" class="form-control" id="sub_category" name="sub_category[]"
 									placeholder="" />
 							</div>
 						</div>
-
 						<button class="btn btn-primary btn-xs" id="btn-fields" type="button"><i class="fas fa-plus"></i>
+						
 						</button>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary btn_close" >

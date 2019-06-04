@@ -129,7 +129,7 @@ $(document).ready(function () {
                     $(".bname").val($resultParse.fullname);
                     $(".bdate").val($resultParse.date_borrowed);
                     $(".bbooktitle").text($resultParse.title);
-                    $(".bbooktitle").text($resultParse.title);
+                    $(".bbookid").val($resultParse.book_id);
                     $(".b_name").text($resultParse.fullname);
                     $(".br_date").text($resultParse.date_borrowed);
                     $(".b_code").text($resultParse.barcode);

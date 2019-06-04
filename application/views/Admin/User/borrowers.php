@@ -67,7 +67,7 @@
 						</p>
 						<div class="ml-auto">
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary" id="member_show">
+							<button type="button" class="btn btn-primary" id="borrower_add">
 								Add Book Category
 							</button>
 

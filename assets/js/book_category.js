@@ -78,8 +78,8 @@ $(document).ready(() => {
                     var res = JSON.parse(result);
                     console.log(res);
                     $.each(res, function (k, v) {
-                        console.log(k);
                         console.log(v.sub_category);
+                        console.log(v.id);
                         // $(".id").val(v.id);
 
                         // console.log(v);
@@ -88,13 +88,10 @@ $(document).ready(() => {
 
                         // $("#id").val(v.id);
                         (sub_category).append(
-                            '<div class="todo ">' +
-                            ' <div class="custom-control custom-checkbox">' +
-                            '<input type="checkbox" class="custom-control-input" name="subcat[]" id="' + k + '">' +
-                            '<label class="custom-control-label" for="' + k + '">' + v.sub_category + '</label>' +
-                            '</div>' +
+                            '<div class="todo">' +
+                            '<button data-id="' + v.id + '" class="btn btn-sm btn-icon btn-secondary subcat_id mr-3 ">  <i class="fa fa-trash-alt"></i></button>' +
+                            '<span" for="' + v.id + '">' + v.sub_category + '</span>' +
                             '</div>'
-
                         );
                     });
                     if (res.length) {
@@ -104,7 +101,7 @@ $(document).ready(() => {
                     }
                 })
 
-                $(".modal_subCat").modal('show');
+                $(".modal_subCat").modal({ backdrop: 'static', keyboard: false, show: true })
             });
             // $(".editUserInfo").click(function () {
             //     var id = $(this).data("id");
@@ -120,8 +117,10 @@ $(document).ready(() => {
         },
         order: []
     });
-
-
+    var checkedCbs = $('input[type=checkbox][name="subcat[]"]:checked');
+    checkedCbs.each(function () {
+        console.log($(this).val());
+    });
     function textTruncate(type, data, length) {
         if (data.length) {
             return data;
@@ -139,10 +138,11 @@ $(document).ready(() => {
     }
 
 
-    // $('.btn_close').click(function () {
-    //     $('.frm-grp-subcat').remove();
-    //     $(".modal_subCat").modal('hide');
-    // });
+
+    $('.btn_close').click(function () {
+        $('.frm-grp-subcat').empty();
+        $(".modal_subCat").modal('hide');
+    });
 
     $('#btn-category').click(function () {
         // $.post(base_url + "/admin/book/category/add_book_category", $(".frm-category").serialize()).done(function (result) {
@@ -154,7 +154,9 @@ $(document).ready(() => {
                 'success'
             )
             $(".modal_category").modal('hide');
+            sub_category.empty();
             category_table.ajax.reload();
+
         }).fail(function (result) {
             console.log(result);
         })
@@ -165,22 +167,32 @@ $(document).ready(() => {
         if (x < max_field) {
             x++;
             $(wrapper).append('<div class="form-group ">' +
-                '<input type="text" class="form-control" id="sub_category"name="sub_category[]"' +
-                'placeholder="" /></div>'); //add input box
+                '<input type="text" class="form-control" id="sub_category" name="sub_category[]"' +
+                'placeholder="" /><a href="#" class="remove_field">Remove</a></div>'); //add input box
         }
     })
-
+    $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
     $('#btn-sub_category').click(function () {
         let data = $(".frm_sub_category").serialize();
-        $.post(base_url + "/subcategory/add", data).done(function (result) {
+        $.post(base_url + "/subcategory/add", data).done(function (e, result) {
             $('.frm_sub_category')[0].reset();
             Swal.fire(
                 '',
-                'Sub Categories Added',
+                result.message,
                 'success'
             )
+            e.preventDefault()
+
             $(".modal_subCat").modal('hide');
             category_table.ajax.reload();
+        }).fail(function (res) {
+            Swal.fire(
+                'Unable to add subcategory',
+                res.responseJSON.message,
+                'error'
+            )
         });
     });
 
@@ -210,4 +222,15 @@ $(document).ready(() => {
 
 
 
+})
+
+$(document).on('click', ".subcat_id", function (e) {
+    var base_url = window.location.origin;
+
+    var id = $(this).data("id");
+    $('.sc_id').val(id)
+    var sc_id = $('.sc_id').serialize();
+    $.post(base_url + '/admin/book/subcategory/remove', sc_id).done(function (result) {
+        console.log(result);
+    })
 })

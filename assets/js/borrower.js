@@ -69,7 +69,8 @@ $(document).ready(() => {
                     //           "</div>";
                     return (
                         "<button  data-id='" + data + "' class='btn btn-sm btn-icon btn-secondary borrower_view '  data-backdrop='static' data-keyboard='false' id='btn-modal-view'>  <i class='far fa-eye'></i></button>" +
-                        "<button  data-id='" + data + "' class='btn btn-sm btn-icon btn-secondary borrower_edit '   >  <i class='fa fa-pencil-alt'></i></button>"
+                        "<button  data-id='" + data + "' class='btn btn-sm btn-icon btn-secondary borrower_edit '   >  <i class='fa fa-pencil-alt'></i></button>" +
+                        "<button  data-id='" + data + "' class='btn btn-sm btn-icon btn-secondary borrower_rev '   >  <i class='fa fa-trash-alt'></i></button>"
 
                     );
 
@@ -124,6 +125,18 @@ $(document).ready(() => {
             })
 
 
+            $('.borrower_rev').click(function () {
+                var id = $(this).data("id");
+                $('#br_id').val(id);
+                $.get(base_url + '/admin/user/borrowers/edit', { id: id }).done(function (result) {
+                    var res = JSON.parse(result);
+
+                    $('.bname').text(res.fullname);
+
+                    $('#modal_rev').modal('show');
+
+                })
+            })
         },
         order: []
     });
@@ -147,17 +160,53 @@ $(document).ready(() => {
 
         $.post(base_url + '/admin/user/borrowers/update', $('.student_form').serialize()).done(function (result) {
             Swal.fire(
+                '',
                 'Changes saved',
                 'success'
             )
-            console.log(result);
+            $("#modal_borrower_info").modal('hide');
         }).fail(function (result) {
             Swal.fire(
                 'Unable to save changes',
                 result.responseJSON.message,
                 'error'
             )
-            console.log(result);
+        })
+    })
+
+    $('#borrower_add').click(function () {
+        $("#modal_borrow").modal('show');
+
+    })
+    $('.btn-xsave').click(function () {
+        var frm = $(".borrowfrm").serialize();
+        $.post(base_url + '/admin/transaction/borrowedbooks/borrower', frm).done(function (result) {
+
+            Swal.fire(
+                '',
+                result.message,
+                'Successfully Added',
+                'success'
+            )
+            borrower.ajax.reload();
+            $("#modal_borrow").modal('hide');
+        }).fail(function (result) {
+            Swal.fire(
+                '',
+                result.responseJSON.message,
+                'error'
+            )
+        })
+        // $(".js-select").trigger('change');
+    })
+    $('#btn-remove-borrower').click(function () {
+        $.post(base_url + '/admin/user/borrowers/remove_borrower ', $('.remborrower').serialize()).done(function (result) {
+            Swal.fire(
+                '',
+                'Borrower Successfully Removed',
+                'success'
+            )
+            borrower.ajax.reload();
         })
     })
 

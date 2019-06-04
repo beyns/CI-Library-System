@@ -160,5 +160,11 @@ class Borrower_Model extends CI_Model
       $this->db->where('id', $id);
      return $this->db->update('borrowers', $data);
     }
+
+    public function remove($id)
+    {
+      $this->db->where('id',$id);
+      return $this->db->delete('borrowers');
+    }
       
 }
