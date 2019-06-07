@@ -10,8 +10,17 @@ class Login_Model extends CI_Model
 
     public function validate($username, $password)
     {
-        $data =  $this->db->get_where('members', array('username' => $username , 'password' => $password));
-        return $data->row_array();
+        $this->db->where('username', $username);
+        $this->db->where('password',$password);
+        $query =$this->db->get('members');
+        if($query->num_rows() == 1)  
+        {  
+            return true;  
+        }  
+        else  
+        {  
+            return false;       
+        }  
     }
 
 }

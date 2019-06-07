@@ -33,13 +33,13 @@
                             </select> <label for="fls1">Status</label>
                           </div>
                         </div>
-                      
+
                         <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-update" >Update Status</button>
             </div>
                 </form>
             </div>
-           
+
         </div>
     </div>
 </div>

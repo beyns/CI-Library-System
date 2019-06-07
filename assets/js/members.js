@@ -78,12 +78,12 @@ $(document).ready(function () {
                         "<button  data-id='" +
                         data +
                         "' class='btn btn-sm btn-icon btn-secondary  btn-modal' id='btn-modal-view' >  <i class='far fa-eye'></i></button>" +
-                        "<button data-id='"
+                        //"<button data-id='"
                         // data +
                         // "' class='btn btn-sm btn-icon btn-secondary btn-modal' id ='btn-modal-edit'>   <i class='fa fa-pencil-alt'></i></button>" +
-                        // "<button data-id='" +
-                        // data +
-                        // "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-modal-del' href='#' id ='btn-modal-edit'><i class='far fa-trash-alt'></i></button>"
+                        "<button data-id='" +
+                        data +
+                        "' class='btn btn-sm btn-icon btn-secondary btn_mdel  btn-modal '  href='#'><i class='far fa-trash-alt'></i></button>"
                     );
 
                     ("Edit");
@@ -113,7 +113,16 @@ $(document).ready(function () {
                 }
                 // $('#modal_view').modal('show');
             });
-
+            $('.btn_mdel').click(function () {
+                var id = $(this).data("id");
+                $("#mid").val(id);
+                $.get(base_url + '/admin/user/members/edit', { id: id }).done(function (result) {
+                    let parseResult = JSON.parse(result);
+                    console.log(parseResult);
+                    $(".mm").text(parseResult.firstname + ' ' + parseResult.lastname);
+                });
+                $('#modal_mdel').modal('show');
+            })
             $(document).on('click', '#btn-edit', function () {
                 $(".fname").prop('disabled', false);
                 $(".lname").prop('disabled', false);
@@ -177,23 +186,22 @@ $(document).ready(function () {
 
     $('#btn-member').click(function () {
 
-        $.post(base_url + '/admin/user/members/insert', $('.member_form').serialize()).done(function (result) {
-            $('.member_form')[0].reset();
-            console.log(result)
+        $.post(base_url + '/admin/user/members/insert', $('.mmform').serialize()).done(function (result) {
+            $('#member_modal .mmform')[0].reset();
             Swal.fire(
-                '',
-                'User Added',
+                'Success',
+                result.message,
                 'success'
             )
             $('#member_modal').modal('hide');
             members_table.ajax.reload();
         }).fail(function (result) {
-            $('.member_form')[0].reset();
             Swal.fire(
                 '',
                 result.responseJSON.message,
                 'error'
             )
+
             //   $('.err_message').html();
         });
     });
@@ -210,8 +218,27 @@ $(document).ready(function () {
 
 
         $.post(base_url + '/admin/user/members/update', $('.editMmbrForm').serialize()).done(function (result) {
-            console.log(result);
+            Swal.fire(
+                '',
+                result.message,
+                'success'
+            )
             $('.editMmbrForm')[0].reset();
+            $(".fname").prop('disabled', true);
+            $(".lname").prop('disabled', true);
+            $(".uname").prop('disabled', true);
+            $(".email").prop('disabled', true);
+            $(".role").prop('disabled', true);
+
+
+            $('.cancel-btn').hide();
+            if (result.message) {
+                $('.chkc').toggle();
+
+            }
+            $('.update-btn').hide();
+
+            $('.edit-btn').show();
             $('#modal_edit').modal('hide');
             members_table.ajax.reload();
         }).fail(function (result) {
@@ -221,5 +248,16 @@ $(document).ready(function () {
                 'error'
             )
         });
+    })
+
+    $('#btn-remove-mem').click(function () {
+        $.post(base_url + "/admin/user/members/remove", $('.removeMem').serialize()).done(function () {
+            Swal.fire(
+                '',
+                'Successfully Removed',
+                'success'
+            )
+            members_table.ajax.reload();
+        })
     })
 });

@@ -56,7 +56,13 @@ $(document).ready(() => {
                     return (
                         "<button data-toggle='modal' data-id='" +
                         data +
-                        "' class='btn btn-danger btn-xs subCat'><i class='fas fa-plus'></i></button>"
+                        "' class='btn btn-danger btn-xs subCat'><i class='fas fa-plus'></i></button>" +
+                        "<button data-id='" +
+                        data +
+                        "' class='btn btn-sm btn-icon btn-secondary btn_cedit'>   <i class='fa fa-pencil-alt'></i></button>" +
+                        "<button data-id='" +
+                        data +
+                        "' class='btn btn-sm btn-icon btn-secondary btn_cdel  btn-modal '  href='#'><i class='far fa-trash-alt'></i></button>"
                         // "<button type='button' data-toggle='modal' data-id='" +
                         // data +
                         // "' class='btn  btn-xs btn-primary editUserInfo' id='editmodal'>Edit</button>"
@@ -89,6 +95,7 @@ $(document).ready(() => {
                         // $("#id").val(v.id);
                         (sub_category).append(
                             '<div class="todo">' +
+                            '<a data-id="' + v.id + '" class="btn btn-sm btn-icon btn-secondary subcatedit_id mr-3 ">  <i class="fa fa-pencil-alt"></i></a>' +
                             '<button data-id="' + v.id + '" class="btn btn-sm btn-icon btn-secondary subcat_id mr-3 ">  <i class="fa fa-trash-alt"></i></button>' +
                             '<span" for="' + v.id + '">' + v.sub_category + '</span>' +
                             '</div>'
@@ -103,6 +110,29 @@ $(document).ready(() => {
 
                 $(".modal_subCat").modal({ backdrop: 'static', keyboard: false, show: true })
             });
+
+            $('.btn_cdel').click(function () {
+                var id = $(this).data("id");
+                $(".cid").val(id);
+                $("#del_id").val(id);
+                $.get(base_url + "/admin/book/category/get_subcategory", { id: id }).done(function (result) {
+                    console.log(result);
+                    var res = JSON.parse(result);
+                    console.log(res);
+
+                })
+                $('.modal_subCatDel').modal('show');
+            })
+
+            $('.btn_cedit').click(function () {
+                var id = $(this).data("id");
+                $("#ccid").attr('value', id);
+                $.get(base_url + "/admin/book/category/get_category", { id: id }).done(function (result) {
+                    var res = JSON.parse(result);
+                    $('#c_name').val(res.category);
+                })
+                $('.modal_upcategory').modal('show');
+            })
             // $(".editUserInfo").click(function () {
             //     var id = $(this).data("id");
             //     $.post(base_url + "/user/getUser", { id: id }).done(function (result) {
@@ -138,9 +168,33 @@ $(document).ready(() => {
     }
 
 
+    $('#btn-category_update').click(function () {
+        $.post(base_url + '/admin/book/category/update', $('.updatecategory').serialize()).done(function (res) {
+            Swal.fire(
+                '',
+                res.message,
+                'success'
+            )
+            $('.updatecategory')[0].reset();
+            category_table.ajax.reload();
+            $('.modal_upcategory').modal('hide');
+
+        }).fail(function (res) {
+            Swal.fire(
+                '',
+                res.responseJSON.message,
+                'error'
+            )
+            $('.updatecategory')[0].reset();
+
+            $('.modal_upcategory').modal('hide');
+
+        })
+    })
 
     $('.btn_close').click(function () {
         $('.frm-grp-subcat').empty();
+        $('.frm_sub_category')[0].reset();
         $(".modal_subCat").modal('hide');
     });
 
@@ -153,9 +207,9 @@ $(document).ready(() => {
                 'New Category Added',
                 'success'
             )
-            $(".modal_category").modal('hide');
-            sub_category.empty();
             category_table.ajax.reload();
+
+            $(".modal_category").modal('hide');
 
         }).fail(function (result) {
             console.log(result);
@@ -178,13 +232,13 @@ $(document).ready(() => {
         let data = $(".frm_sub_category").serialize();
         $.post(base_url + "/subcategory/add", data).done(function (e, result) {
             $('.frm_sub_category')[0].reset();
+            console.log(result);
             Swal.fire(
-                '',
-                result.message,
+                'Sub Category Added',
+                result,
                 'success'
             )
-            e.preventDefault()
-
+            sub_category.empty();
             $(".modal_subCat").modal('hide');
             category_table.ajax.reload();
         }).fail(function (res) {
@@ -220,7 +274,17 @@ $(document).ready(() => {
         // console.log(id);
     })
 
-
+    $('.catDel').click(function () {
+        $.post(base_url + '/admin/book/category/remove_cat', $('.delcat').serialize()).done(function (result) {
+            Swal.fire(
+                'Success',
+                '',
+                'success'
+            )
+            $('.modal_subCatDel').modal('hide');
+            category_table.ajax.reload();
+        })
+    })
 
 })
 
@@ -234,3 +298,14 @@ $(document).on('click', ".subcat_id", function (e) {
         console.log(result);
     })
 })
+// $(document).on('click', ".subcatedit_id", function (e) {
+//     var base_url = window.location.origin;
+
+//     $('#sub_category').val('hello');
+//     // var id = $(this).data("id");
+//     // $('.sc_id').val(id)
+//     // var sc_id = $('.sc_id').serialize();
+//     // $.post(base_url + '/admin/book/subcategory/remove', sc_id).done(function (result) {
+//     //     console.log(result);
+//     // })
+// })

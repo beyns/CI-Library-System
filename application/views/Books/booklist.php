@@ -66,6 +66,7 @@ hello<?php $this->load->view('template/include_head.php') ?>
 			</div>
 		</div>
 		<?php $this->load->view('books/borrow_modal') ?>
+		<?php $this->load->view('books/modal') ?>
 
 	</div>
 	<footer class="app-footer">

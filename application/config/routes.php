@@ -60,4 +60,5 @@ $route['subcategory/add']['POST'] = 'admin/book/subcategory/insert_sub_category'
 $route['category/add']['POST'] = 'admin/book/category/add_book_category';
 $route['book/show']['GET'] = 'admin/book/books/show';
 $route['member/add']['POST'] = 'admin/user/members/insert';
+$route['admin/transaction/borrowedbooks/borrowedTable/(:any)'] = 'admin/transaction/borrowedbooks/borrowedTable/$1';
 

@@ -1,4 +1,38 @@
 <!-- Modal -->
+<div class="modal fade" id="modal_borrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title category"> </h5>
+            </div>
+
+            <div class="modal-body">
+            <?php echo form_open('', array('class' => 'borrow_form'))?>
+            <label for="">Book Id</label>
+                <input type="text" class="bk-id" name="book_id">
+                <input type="text" class="form-control" id="bk-qty" name="qty">
+
+                <!-- <input type="text" class="bk-title" name="title"> -->
+                <blockquote>
+                    <p class="mb-0 booktitle"> </p>
+                    <footer class="author">
+
+                    </footer>
+                </blockquote>
+                <p class="description"> </p>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="btn-borrow" >Borrow Book</button>
+            </div>
+        </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="member_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 381px;" role="document">
@@ -13,8 +47,7 @@
             </div>
             <div class="modal-body">
                 <div class="err_message"></div>
-                <?php echo validation_errors() ?>
-                <?php echo form_open('', array("class" => 'member_form')) ?>
+                <?php echo form_open('', array("class" => 'mmform')) ?>
 
                 <div class="form-row">
                     <div class="form-group  col-md-6 ">
@@ -58,7 +91,7 @@
                     </button>
                 </div>
 
-                </form>
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>
@@ -91,7 +124,7 @@
 
 
 
-<div class="modal fade" id="modal_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modal_mdel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <!-- .modal-dialog -->
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -99,15 +132,16 @@
         <div class="modal-content">
             <!-- .modal-header -->
             <div class="modal-header">
-                <h5 id="exampleModalLabel" class="modal-title book_title"></h5>
+                <h5 id="exampleModalLabel" class="modal-title mm"></h5>
             </div>
 
             <div class="modal-body">
-                <?php echo form_open('' ,array('class' => 'removebook'))?>
-                <input type="hidden" id="book_id" name="id" />
-                <p>Are you sure you want to delete this book?</p>
-                <button type="button" class="btn btn-danger" id="btn-remove-book" data-dismiss="modal">Remove</button>
-                </form>
+                <?php echo form_open('' ,array('class' => 'removeMem'))?>
+                <input type="hidden" id="mid" name="id" />
+                <p>Are you sure you want to remove this user?</p>
+                <button type="button" class="btn btn-danger" id="btn-remove-mem" data-dismiss="modal">Remove</button>
+                <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancel</button>
+                <?php echo form_close(); ?>
             </div><!-- /.modal-body -->
             <!-- .modal-footer -->
             <div class="modal-footer">
@@ -125,7 +159,7 @@
         <div class="modal-content">
             <!-- .modal-header -->
             <div class="modal-header">
-                <h5 id="exampleModalLabel" class="modal-title"> Modal title </h5>
+                <h5 id="exampleModalLabel" class="modal-title"> Modal stitle </h5>
             </div>
 
             <div class="modal-body">
@@ -230,7 +264,7 @@
                     </button>
                 </div>
             </div>
-            </form>
+            <?php echo form_close(); ?>
         </div><!-- /.modal-body -->
 
     </div>

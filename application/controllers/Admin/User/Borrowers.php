@@ -100,7 +100,7 @@ class Borrowers extends CI_Controller
 
     public function update()
     {
-        $this->form_validation->set_rules('student_num', 'Student Number', 'required|regex_match[/^[0-9]{8}$/]');
+        $this->form_validation->set_rules('student_num', 'Student Number', 'required|regex_match[/^[0-9]{8}$/]|callback_student_check');
         $this->form_validation->set_rules('fullname', 'Fullname', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('contact', 'Contact',  'required|regex_match[/^[0-9]{11}$/]|max_length[11]|min_length[10]|greater_than[0]');
@@ -143,4 +143,37 @@ class Borrowers extends CI_Controller
         $this->borrow_m->remove($id);
 
     }
+
+    public function student_check($str)
+    {
+        $id = $this->input->post('id');
+        $result = $this->db->get_where('borrowers', array('student_num' => $str));
+        // if ($result->num_rows > 0) {
+          
+            $result_id = $result->row('id');
+
+            # code...
+        // }
+
+
+            if ($id == $result_id) //inupdate ibang field maliban s sariling email
+            {
+                
+                return TRUE;
+                    
+            }
+            elseif ( $result_id == NULL) //inupdate ibang field maliban s sariling email
+            {
+
+                return TRUE;
+                    
+            }
+             else
+             {
+                 $this->form_validation->set_message('student_check', 'Student Id is already taken');
+                 return FALSE;
+                    
+             }
+    }
+
 }

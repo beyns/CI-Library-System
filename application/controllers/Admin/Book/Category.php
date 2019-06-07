@@ -89,7 +89,7 @@ class Category extends CI_Controller
 
                 $status_code = 401;
                 $response = array('status' => $status_code, 'message' => validation_errors() );
-    
+
                 return $this->output
                 ->set_status_header($status_code)
                 ->set_content_type('application/json')
@@ -104,20 +104,89 @@ class Category extends CI_Controller
                 ->set_content_type('application/json')
                 ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
         }
-       
+
     }
 
     public function get_category()
     {
-        $id = $this->input->post('id');
+        $id = $this->input->get('id');
         $result = $this->cat_m->get_category_name($id);
         echo json_encode($result);
     }
 
+    public function update()
+    {
+        $this->form_validation->set_rules('category', 'Category' , 'required|callback_category_check');
+        $id = $this->input->post('id');
+        $category =$this->input->post('category');
+        $status_code = 200;
+        
+
+         $response = array('status' => $status_code, 'message' => 'Changes saved' );
+
+             if ($this->form_validation->run() == FALSE) {
+
+                 $status_code = 401;
+                 $response = array('status' => $status_code, 'message' => validation_errors() );
+
+                 return $this->output
+                 ->set_status_header($status_code)
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+
+         }
+         else {
+            $result = $this->cat_m->savechanges($category,$id);
+                 return $this->output
+                 ->set_header('HTTP/1.1 200 OK')
+                 ->set_status_header($status_code)
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+         }
+    }
+
+    public function category_check($str)
+    {
+        $id = $this->input->post('id');
+        $result = $this->db->get_where('book_category', array('category' => $str));
+        // if ($result->num_rows > 0) {
+          
+            $result_id = $result->row('id');
+
+            # code...
+        // }
+
+
+            if ($id == $result_id) //inupdate ibang field maliban s sariling email
+            {
+                
+                return TRUE;
+                    
+            }
+            elseif ( $result_id == NULL) //inupdate ibang field maliban s sariling email
+            {
+
+                return TRUE;
+                    
+            }
+             else
+             {
+                 $this->form_validation->set_message('category_check', 'Category is already added');
+                 return FALSE;
+                    
+             }
+    }
     public function get_subcategory()
     {
         $id = $this->input->get('id', TRUE);
         $result = $this->book_m->getSubCategoryByCategoryId($id);
+        echo json_encode($result);
+    }
+
+    public function remove_cat()
+    {
+        $id = $this->input->post('id');
+        $result = $this->cat_m->removeCategory($id);
         echo json_encode($result);
     }
 }

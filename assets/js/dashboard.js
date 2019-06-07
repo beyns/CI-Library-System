@@ -2,6 +2,7 @@ $(document).ready(function () {
     var base_url = window.location.origin;
     var borrowed_table;
     var unreturned_table
+
     unreturned_table = $("#unreturnedBookTable").DataTable({
         processing: true,
         serverSide: true,
@@ -78,58 +79,71 @@ $(document).ready(function () {
     }
 
 
-    borrowed_table = $("#borrowedBookTable").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: base_url + "/admin/transaction/borrowedbooks/borrowedTable",
-            dataType: "json",
-            // data: {_token : $('meta[name="token_"]').attr('content')},
-            type: "POST"
-        },
+    function dataTableborrowed(date = null) {
+        if (date != "") {
+            // console.log(result);
+            $("#borrowedBookTable").DataTable().destroy();
+            var url = base_url + "/admin/transaction/borrowedbooks/borrowedTable/" + date;
+        } else {
+            var url = base_url + "/admin/transaction/borrowedbooks/borrowedTable";
+        }
 
-        lengthMenu: [10, 25, 50, 75, 100, 250, 500],
-        rowReorder: {
-            selector: ".sort-column",
-            update: false
-        },
-        columns: [
-            {
-                data: "id",
-                orderable: true,
-                searchable: true,
-                visible: true
-            },
-            {
-                data: "barcode",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
+        borrowed_table = $("#borrowedBookTable").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                //url: base_url + "/admin/transaction/borrowedbooks/borrowedTable",
+                url: url,
+                dataType: "json",
+                // data: {_token : $('meta[name="token_"]').attr('content')},
+                type: "POST"
             },
 
-            {
-                data: "title",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
+            lengthMenu: [10, 25, 50, 75, 100, 250, 500],
+            rowReorder: {
+                selector: ".sort-column",
+                update: false
             },
-            {
-                data: "fullname",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
-            },
-            {
-                data: "date_borrowed",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
-            },
+            columns: [
+                {
+                    data: "id",
+                    orderable: true,
+                    searchable: true,
+                    visible: true
+                },
+                {
+                    data: "barcode",
+                    render: function (data, type, row, meta) {
+                        return textTruncate(type, data, 20);
+                    }
+                },
 
-        ],
+                {
+                    data: "title",
+                    render: function (data, type, row, meta) {
+                        return textTruncate(type, data, 20);
+                    }
+                },
+                {
+                    data: "fullname",
+                    render: function (data, type, row, meta) {
+                        return textTruncate(type, data, 20);
+                    }
+                },
+                {
+                    data: "date_borrowed",
+                    render: function (data, type, row, meta) {
+                        return textTruncate(type, data, 20);
+                    }
+                },
 
-        order: []
-    });
+            ],
+
+            order: []
+        });
+
+    }
+
 
     function textTruncate(type, data, length) {
         if (data.length) {
@@ -158,11 +172,13 @@ $(document).ready(function () {
             var date = start.format('YYYY-MM-DD');
             ($(".date_borrowed").val(date));
             console.log('New date range selected: ' + start.format('YYYY-MM-DD'));
-            $.post(base_url + '/admin/transaction/borrowedbooks/select', $('.datefrm').serialize()).done(function (result) {
-                console.log(result);
-                borrowed_table.ajax.reload();
-            })
+            //$.post(base_url + '/admin/transaction/borrowedbooks/select', $('.datefrm').serialize()).done(function (result) {
+            //console.log(result);
+            dataTableborrowed(date);
+            //borrowed_table.ajax.reload();
+        })
 
-        });
     });
-})
+    dataTableborrowed(false);
+
+});

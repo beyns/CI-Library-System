@@ -1,216 +1,193 @@
-<header class="app-header app-header-dark">
-        <div class="top-bar">
-          <div class="top-bar-brand bg-transparent">
-            <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside" aria-label="toggle menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
-            <a href="index.html"><img src="assets/images/brand-inverse.png" alt="" style="height: 32px;width: auto;"></a>
-          </div>
-          <div class="top-bar-list">
-            <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
-              <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
-            </div>
-            <div class="top-bar-item top-bar-item-full">
-              <form class="top-bar-search">
-                <div class="input-group input-group-search">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                  </div><input type="text" class="form-control" aria-label="Search" placeholder="Search">
+<nav class="navbar navbar-main navbar-expand-lg navbar-light bg-white navbar-border mb-5" id="navbar-main">
+        <div class="container-fluid">
+          <!-- Brand + Toggler (for mobile devices) -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- User's navbar -->
+          <div class="navbar-user d-lg-none ml-auto">
+            <ul class="navbar-nav flex-row align-items-center">
+              <li class="nav-item">
+                <a href="#" class="nav-link nav-link-icon sidenav-toggler active" data-action="sidenav-pin" data-target="#sidenav-main"><i class="far fa-bars"></i></a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link nav-link-icon" data-action="omnisearch-open" data-target="#omnisearch"><i class="far fa-search"></i></a>
+              </li>
+              <li class="nav-item dropdown dropdown-animate">
+                <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg dropdown-menu-arrow p-0">
+                  <div class="py-3 px-3">
+                    <h5 class="heading h6 mb-0">Notifications</h5>
+                  </div>
+                  <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="2 hrs ago" data-original-title="" title="">
+                        <div>
+                          <span class="avatar bg-primary text-white rounded-circle">AM</span>
+                        </div>
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">Alex Michael <small class="float-right text-muted">2 hrs ago</small></div>
+                          <p class="text-sm lh-140 mb-0">
+                            Some quick example text to build on the card title.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="3 hrs ago" data-original-title="" title="">
+                        <div>
+                          <span class="avatar bg-warning text-white rounded-circle">SW</span>
+                        </div>
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">Sandra Wayne <small class="float-right text-muted">3 hrs ago</small></div>
+                          <p class="text-sm lh-140 mb-0">
+                            Some quick example text to build on the card title.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="5 hrs ago" data-original-title="" title="">
+                        <div>
+                          <span class="avatar bg-info text-white rounded-circle">JM</span>
+                        </div>
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">Jason Miller <small class="float-right text-muted">5 hrs ago</small></div>
+                          <p class="text-sm lh-140 mb-0">
+                            Some quick example text to build on the card title.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="2 hrs ago" data-original-title="" title="">
+                        <div>
+                          <span class="avatar bg-dark text-white rounded-circle">MJ</span>
+                        </div>
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">Mike Thomson <small class="float-right text-muted">2 hrs ago</small></div>
+                          <p class="text-sm lh-140 mb-0">
+                            Some quick example text to build on the card title.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="3 hrs ago" data-original-title="" title="">
+                        <div>
+                          <span class="avatar bg-primary text-white rounded-circle">RN</span>
+                        </div>
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">Richard Nixon <small class="float-right text-muted">3 hrs ago</small></div>
+                          <p class="text-sm lh-140 mb-0">
+                            Some quick example text to build on the card title.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="py-3 text-center">
+                    <a href="#" class="link link-sm link--style-3">View all notifications</a>
+                  </div>
                 </div>
-              </form>
-            </div>
-            <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
-              <ul class="header-nav nav">
-                <li class="nav-item dropdown header-nav-dropdown has-notified">
-                  <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-pulse"></span></a>
-                  <div class="dropdown-arrow"></div>
-                  <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                    <h6 class="dropdown-header stop-propagation">
-                      <span>Activities <span class="badge">(2)</span></span>
-                    </h6>
-                    <div class="dropdown-scroll perfect-scrollbar ps">
-                    
-                      <a href="#" class="dropdown-item unread">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces15.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Jeffrey Wells created a schedule </p><span class="date">Just now</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item unread">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces16.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Anna Vargas logged a chat </p><span class="date">3 hours ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces17.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Sara Carr invited to Stilearn Admin </p><span class="date">5 hours ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces18.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Arthur Carroll updated a project </p><span class="date">1 day ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces19.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Hannah Romero created a task </p><span class="date">1 day ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces20.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Angela Peterson assign a task to you </p><span class="date">2 days ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/uifaces21.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="text"> Shirley Mason and 3 others followed you </p><span class="date">2 days ago</span>
-                        </div>
-                      </a> 
-                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div><!-- /.dropdown-scroll -->
-                    <a href="user-activities.html" class="dropdown-footer">All activities <i class="fas fa-fw fa-long-arrow-alt-right"></i></a>
-                  </div>
-                </li>
-               
-                <li class="nav-item dropdown header-nav-dropdown has-notified">
-                  <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-envelope-open"></span></a>
-                  <div class="dropdown-arrow"></div>
-                  <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                    <h6 class="dropdown-header stop-propagation">
-                      <span>Messages</span> <a href="#">Mark all as read</a>
-                    </h6>
-                    <div class="dropdown-scroll perfect-scrollbar ps">
-                    
-                      <a href="#" class="dropdown-item unread">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/team1.jpg" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Stilearning </p>
-                          <p class="text text-truncate"> Invitation: Joe's Dinner @ Fri Aug 22 </p><span class="date">2 hours ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/team3.png" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Openlane </p>
-                          <p class="text text-truncate"> Final reminder: Upgrade to Pro </p><span class="date">23 hours ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="tile tile-circle bg-green"> GZ </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Gogo Zoom </p>
-                          <p class="text text-truncate"> Live healthy with this wireless sensor. </p><span class="date">1 day ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="tile tile-circle bg-teal"> GD </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Gold Dex </p>
-                          <p class="text text-truncate"> Invitation: Design Review @ Mon Jul 7 </p><span class="date">1 day ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="assets/images/avatars/team2.png" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Creative Division </p>
-                          <p class="text text-truncate"> Need some feedback on this please </p><span class="date">2 days ago</span>
-                        </div>
-                      </a> 
-                    
-                      <a href="#" class="dropdown-item">
-                        <div class="tile tile-circle bg-pink"> LD </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Lab Drill </p>
-                          <p class="text text-truncate"> Our UX exercise is ready </p><span class="date">6 days ago</span>
-                        </div>
-                      </a> 
-                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div><!-- /.dropdown-scroll -->
-                    <a href="page-messages.html" class="dropdown-footer">All messages <i class="fas fa-fw fa-long-arrow-alt-right"></i></a>
-                  </div>
-                </li>
-               
-                <li class="nav-item dropdown header-nav-dropdown">
-                  <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-grid-three-up"></span></a>
-                  <div class="dropdown-arrow"></div>
-                  <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                    <div class="dropdown-sheets">
-                  
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-indigo"><i class="oi oi-people"></i></span> <span class="tile-peek">Teams</span></a>
-                      </div>
-                  
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-teal"><i class="oi oi-fork"></i></span> <span class="tile-peek">Projects</span></a>
-                      </div>
-                  
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-pink"><i class="fa fa-tasks"></i></span> <span class="tile-peek">Tasks</span></a>
-                      </div>
-                  
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-yellow"><i class="oi oi-fire"></i></span> <span class="tile-peek">Feeds</span></a>
-                      </div>
-                  
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-cyan"><i class="oi oi-document"></i></span> <span class="tile-peek">Files</span></a>
-                      </div>
+              </li>
+              <li class="nav-item dropdown dropdown-animate">
+                <a class="nav-link pr-lg-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="avatar avatar-sm rounded-circle">
+                    <img alt="Image placeholder" src="../../assets/img/theme/light/team-4-800x800.jpg">
+                  </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right dropdown-menu-arrow">
+                  <h6 class="dropdown-header px-0">Hi, Heather!</h6>
+                  <a href="../../application/user/profile.html" class="dropdown-item">
+                    <i class="far fa-user"></i>
+                    <span>My profile</span>
+                  </a>
+                  <a href="../../application/account/settings.html" class="dropdown-item">
+                    <i class="far fa-cog"></i>
+                    <span>Settings</span>
+                  </a>
+                  <a href="../../application/account/billing.html" class="dropdown-item">
+                    <i class="far fa-credit-card"></i>
+                    <span>Billing</span>
+                  </a>
+                  <a href="../../application/shop/orders.html" class="dropdown-item">
+                    <i class="far fa-shopping-basket"></i>
+                    <span>Orders</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="../../application/authentication/login.html" class="dropdown-item">
+                    <i class="far fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- Navbar nav -->
+          <div class="collapse navbar-collapse navbar-collapse-fade" id="navbar-main-collapse">
+            <ul class="navbar-nav align-items-lg-center">
+              <!-- Overview  -->
+              <li class="nav-item d-lg-none ">
+                <a class="nav-link" href="../../index.html">
+                  Overview
+                </a>
+              </li>
+              <li class="border-top opacity-2 my-2"></li>
+              <!-- Home  -->
+              <li class="nav-item ">
+                <a class="nav-link pl-lg-0" href="../../application/home.html">
+                  Home
+                </a>
+              </li>
+              <!-- Application menu -->
+              <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Books
+                </a>
+                <div class="dropdown-menu dropdown-menu-arrow p-lg-0">
+                  <!-- Top dropdown menu -->
+                  <div class="p-lg-4">
+                    <div class="dropdown dropdown-animate dropdown-submenu" data-toggle="hover">
+                      <a href="#" class="dropdown-item dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Book List
+                      </a>
                     </div>
                   </div>
-                </li>
-              </ul>
-              <?php
-                  $user = $this->session->userdata('members');
-                    if($user){
-                      extract($user);
-                    }
-             ?>
-              <div class="dropdown">
-                <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="user-avatar user-avatar-md"><img src="https://uselooper.com/assets/images/avatars/profile.jpg" alt=""></span> 
-                <span class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name"><?php //echo $firstname ?></span> 
-                <span class="account-description"><?php //echo $role ?></span></span></button>
-                <div class="dropdown-arrow dropdown-arrow-left"></div>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-header d-none d-md-block d-lg-none"> </h6>
-                  <a class="dropdown-item" href="user-profile.html">
-                      <span class="dropdown-icon oi oi-person"></span> Profile</a> 
-                      <a class="dropdown-item" href="<?php echo base_url("/auth/logout") ?>"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
+                  </div>
+                  <!-- Bottom dropdown menu -->
+              
                 </div>
-              </div>
-            </div>
+              </li>
+           
+            </ul><!-- Right menu -->
+            <ul class="navbar-nav ml-lg-auto align-items-center d-none d-lg-flex">
+              <li class="nav-item dropdown dropdown-animate">
+                <a class="nav-link pr-lg-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="media media-pill align-items-center">
+                    <!-- <span class="avatar rounded-circle">
+                      <img alt="Image placeholder" src="../../assets/img/theme/light/team-4-800x800.jpg">
+                    </span> -->
+                    <div class="ml-2 d-none d-lg-block">
+                      <span class="mb-0 text-sm  font-weight-bold"> <?php  if($this->session->userdata('username') != '')  
+           {  
+                echo $this->session->userdata('username');  
+
+           }  
+ 
+       ?></span>
+                    </div>
+                  </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right dropdown-menu-arrow">
+
+                  <a href="<?php echo base_url("/auth/logout/logout") ?>" class="dropdown-item">
+                    <i class="far fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-      </header>
-      
+      </nav>

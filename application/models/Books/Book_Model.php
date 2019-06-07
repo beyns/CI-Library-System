@@ -155,6 +155,7 @@ class Book_Model extends CI_Model
     public function remove_book($id)
     {
         $this->db->where('id', $id);
-        return $this->db->delete('books');
+         $query = $this->db->delete('books');
+        print_r($this->db->last_query());
     }
 }

@@ -13,7 +13,7 @@ class SubCategory extends CI_Controller
     {
         $category_id = $this->input->post('c_id');
 
-        $this->form_validation->set_rules('sub_category[]', 'Sub Category', 'required');
+        $this->form_validation->set_rules('sub_category[]', 'Sub Category', 'required|is_unique[book_sub_category.sub_category]');
 
         $status_code = 201;
         $response = array('status' => $status_code, 'message' =>  "Added");

@@ -1,39 +1,5 @@
-<div class="modal fade" id="modal_borrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="exampleModalLabel" class="modal-title category"> </h5>
-            </div>
 
-            <div class="modal-body">
-            <?php echo form_open('', array('class' => 'borrow_form'))?>
-            <label for="">Book Id</label>
-                <input type="text" class="bk-id" name="book_id">
-                <input type="text" class="form-control" id="bk-qty" name="qty">
-             
-                <!-- <input type="text" class="bk-title" name="title"> -->
-                <blockquote>
-                    <p class="mb-0 booktitle"> </p>
-                    <footer class="author">
-
-                    </footer>
-                </blockquote>
-                <p class="description"> </p>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" id="btn-borrow" >Borrow Book</button>
-            </div>
-        <form>
-            </div>
-           
-        </div>
-    </div>
-</div>
-
-
-
-<div class="modal fade" id="modal_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modal_dels" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <!-- .modal-dialog -->
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -54,6 +20,34 @@
             <!-- .modal-footer -->
             <div class="modal-footer">
                
+            </div><!-- /.modal-footer -->
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <!-- .modal-dialog -->
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <!-- .modal-content -->
+        <div class="modal-content">
+            <!-- .modal-header -->
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title book_title"></h5>
+            </div>
+
+            <div class="modal-body">
+                <?php echo form_open('' ,array('class' => 'removebook'))?>
+                <input type="TEXT" id="book_id" name="id" />
+                <p>Are you sure you want to deleteS this book?</p>
+                <button type="button" class="btn btn-danger" id="btn-remove-book" data-dismiss="modal">Remove</button> 
+                 <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancel</button>
+                </form>
+            </div><!-- /.modal-body -->
+            <!-- .modal-footer -->
+            <div class="modal-footer">
+
             </div><!-- /.modal-footer -->
         </div>
     </div>
@@ -93,8 +87,8 @@
                 </div>
                 <input type="hidden" class="form-control" id="b_id" name="id" placeholder="" />
                 <div class="form-group">
-                    <label for="inputState">Category</label>
-                    <select id="select_category" id="b_category" name="category" class="form-control">
+                    <label for="inputState">Categosry</label>
+                    <select id="update_category" name="category" class="form-control">
                         <option selected>Choose...</option>
                         <?php
 																foreach($categories as $category):
@@ -108,19 +102,20 @@
                 </div>
                 <div class="form-group subcategory">
                     <label for="inputState">Sub Category</label>
-                    <select id="sub_category" name="subcategory" class="form-control">
+                    <select id="update_sub_category" name="subcategory" class="form-control">
 
                     </select>
                 </div>
                 <div class="form-group 6">
                     <label for="inputPassword4">Quantity</label>
-                    <input type="text" class="form-control" name="qty" placeholder="" />
+                	<input type="text" id="b_qty" class="form-control" name="qty" placeholder="" />
+												<input type="hidden" id="b_borrowed" class="form-control" name="borrowed_qty" placeholder="" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary btn-add-book">
+                    <button type="button" class="btn btn-primary btn-update-book">
                         Save changes
                     </button>
                 </div>
@@ -130,3 +125,5 @@
         </div>
     </div>
 </div>
+
+

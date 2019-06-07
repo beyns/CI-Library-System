@@ -2,12 +2,11 @@
 <?php $this->load->view('admin/header.php') ?>
 <?php $this->load->view('template/include_head.php') ?>
 
-<?php $this->load->view('admin/header.php') ?>
 
-<main class="app-main">
+<main class="page-content">
 	<div class="wrapper">
 		<div class="page">
-			<nav class="navbar navbar-expand-lg navbar-light bg-white"
+			<!-- <nav class="navbar navbar-expand-lg navbar-light bg-white"
 				style="padding-right: 2rem;padding-left:2rem;height: 3.5rem">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -60,32 +59,30 @@
 						</li>
 					</ul>
 				</div>
-			</nav>
+			</nav> -->
 			<div class="page-inner container">
 
 				<div class="container">
 					<div class="page-inner">
-						<?php
-                  $user = $this->session->userdata('members');
-                    if($user){
-                      extract($user);
-                    }
-             ?>
+						<?php  if($this->session->userdata('username') != '')  
+							{  
+								echo '<h2>Welcome - '.$this->session->userdata('username').'</h2>';  
+							}  
+						?>
 						<header class="page-title-bar">
 							<div class="d-flex flex-column flex-md-row">
 								<p class="lead">
-									<span class="font-weight-bold">Hi, <?php// echo $firstname ?>.</span> <span
-										class="d-block text-muted">Here’s
+									<span class="d-block text-muted">Here’s
 										what’s happening with your business today.</span>
 								</p>
 
 								<div class="ml-auto">
 									<?php echo form_open('',array("class" =>'datefrm')) ?>
-									<input type="text" class="date_borrowed" name="d_borrowed">
+									<input type="hidden" class="date_borrowed" name="d_borrowed">
 									<input type="text" name="date_borrowed" id="date_borrowed"
 										class="form-control datepicker has-feedback-left" placeholder="Date To"
 										aria-describedby="inputSuccess2Status4" required="">
-				</form>
+									</form>
 								</div>
 							</div>
 						</header><!-- /.page-title-bar -->
@@ -93,7 +90,6 @@
 						<div class="page-section">
 							<!-- .section-block -->
 
-							<input type="text">
 							<div class="card">
 								<div class="card-body">
 

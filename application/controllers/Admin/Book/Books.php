@@ -104,10 +104,10 @@ class Books extends CI_Controller
 
     public function insert()
     {
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('isbn', 'ISBN', 'required|max_length[10]|min_length[2]');
+        $this->form_validation->set_rules('title', 'Title', 'required|is_unique[books.title]');
+        $this->form_validation->set_rules('isbn', 'ISBN', 'required|max_length[10]|min_length[2]|is_unique[books.isbn]');
         $this->form_validation->set_rules('author', 'Author', 'required');
-        $this->form_validation->set_rules('description', 'Description', 'required|max_length[100]|min_length[50]');
+        $this->form_validation->set_rules('description', 'Description', 'required|max_length[100]|min_length[20]');
         $this->form_validation->set_rules('category', 'Category', 'required');
         $this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
         $this->form_validation->set_rules('qty', 'Quantity', 'required|max_length[10]|min_length[2]');
@@ -152,8 +152,8 @@ class Books extends CI_Controller
     public function update()
     {
         
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('isbn', 'ISBN', 'required');
+        $this->form_validation->set_rules('title', 'Title', 'required|callback_book_title_chk');
+        $this->form_validation->set_rules('isbn', 'ISBN', 'required|regex_match[/^[0-9]{10}$/]|callback_isbn_check');
         $this->form_validation->set_rules('author', 'Author', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
@@ -188,9 +188,10 @@ class Books extends CI_Controller
 
     public function destroy()
     {
-        $id =  $this->input->post('id');
-       $this->book_m->remove_book($id);
-        
+        $id =  $this->input->post('bbid');
+        echo $id;
+        $result = $this->book_m->remove_book($id);
+        echo json_encode($result);
     }
 
     
@@ -234,6 +235,68 @@ class Books extends CI_Controller
         }
     }
 
+    public function book_title_chk($str)
+    {
+        $id = $this->input->post('id');
+        $result = $this->db->get_where('books', array('title' => $str));
+        // if ($result->num_rows > 0) {
+          
+            $result_id = $result->row('id');
+
+            # code...
+        // }
+
+
+            if ($id == $result_id) //inupdate ibang field maliban s sariling email
+            {
+                
+                return TRUE;
+                    
+            }
+            elseif ( $result_id == NULL) //inupdate ibang field maliban s sariling email
+            {
+
+                return TRUE;
+                    
+            }
+             else
+             {
+                 $this->form_validation->set_message('book_title_chk', 'Book Title is already taken');
+                 return FALSE;
+                    
+             }
+    }
+    public function isbn_check($str)
+    {
+        $id = $this->input->post('id');
+        $result = $this->db->get_where('books', array('isbn' => $str));
+        // if ($result->num_rows > 0) {
+          
+            $result_id = $result->row('id');
+
+            # code...
+        // }
+
+
+            if ($id == $result_id) //inupdate ibang field maliban s sariling email
+            {
+                
+                return TRUE;
+                    
+            }
+            elseif ( $result_id == NULL) //inupdate ibang field maliban s sariling email
+            {
+
+                return TRUE;
+                    
+            }
+             else
+             {
+                 $this->form_validation->set_message('isbn_check', 'ISBN is already taken');
+                 return FALSE;
+                    
+             }
+    }
     public function allowedBooks()
     {
         $id = $this->input->get('s_id',TRUE);

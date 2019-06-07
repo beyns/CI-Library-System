@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal_borrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modal_mborrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <!-- .modal-dialog -->
     <div class="modal-dialog modal-dialog-centered modal-sm " role="document">

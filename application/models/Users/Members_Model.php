@@ -150,6 +150,6 @@ class Members_Model extends CI_Model
     public function removeMember($id)
     {
         $this->db->where('id', $id);
-        return $this->db->remove('members');
+        return $this->db->delete('members');
     }
 }

@@ -22,29 +22,43 @@ class Login extends CI_Controller
         $username = $this->input->post('uname');
         $password = sha1($this->input->post('upass'));
 
-        $data = $this->login_m->validate($username,$password);
-        if ($data) {
+        $this->form_validation->set_rules('uname', 'Username', 'required');
+        $this->form_validation->set_rules('upass', 'Password', 'required');
+        if ($this->form_validation->run()) {
+            $data = $this->login_m->validate($username,$password);
+            print_r($data);
+            if ($data) {
+                $session_data = array(
+                    'username' => $username
+                );
 
-            $this->session->set_userdata('members',$data);
-            $status_code = 200;
-            $response = array('status' => $status_code, 'message' => 'success' );
+                $this->session->set_userdata($session_data);
+              
+            }
+            else {
 
-            return $this->output
-            ->set_status_header($status_code)
-            ->set_content_type('application/json')
-            ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+                $response = array('status' => '401', 'message' => "Invalid Username and Password" );
 
-            redirect('admin/dashboard');
+                return $this->output
+                ->set_status_header('401')
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+                
+                
+            }
+
         }
         else{
 
+
             $status_code = 401;
-            $response = array('status' => $status_code, 'message' => 'error' );
+            $response = array('status' => $status_code, 'message' => validation_errors() );
 
             return $this->output
             ->set_status_header($status_code)
             ->set_content_type('application/json')
             ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
+        
         }
     }
 

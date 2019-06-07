@@ -28,16 +28,29 @@ $(document).ready(() => {
 	$("#btn-login").click(() => {
 		$.post(base_url + "/auth/login/login", $(".frm-login").serialize()).done(
 			result => {
-				location.href = base_url + "/admin/dashboard";
+				//;
+				if (result) {
+					setTimeout(function () {
+						location.href = base_url + "/admin/dashboard"
+					}, 1000);
+				}
+				console.log(result)
 			}
-		);
-	});
+
+		).fail(function (result) {
+			Swal.fire(
+				'Login Failed',
+				result.responseJSON.message,
+				'error'
+			)
+		});
+	})
 
 	$("btn-logout").click(() => {
 		// $.post(base_url + '/auth/login/logout').done({
 
 		// })
-		alert("hello world");
+		alert('jello');
 	});
 
 	$("#ckb1").change(function () {

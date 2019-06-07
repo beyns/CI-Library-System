@@ -96,17 +96,16 @@ class Members extends CI_Controller
             "password" => sha1($this->input->post('pass')),
             "role" => $this->input->post('role')
         );
-        unset($data['csrf_test_name']);
+
+        //unset($data['csrf_test_name']);
 
 
         $status_code = 200;
         $response = array('status' => $status_code, 'message' => "User Successfully Added");
-        
         if ($this->form_validation->run() == FALSE) {
           
             $status_code = 401;
             $error_response = array('status' => $status_code, 'message' => validation_errors());
-            $this->load->view('admin/user/members');
             return $this->output
                     ->set_status_header($status_code)
                     ->set_content_type('application/json')
@@ -115,20 +114,15 @@ class Members extends CI_Controller
        else {
            
         $result = $this->member_m->insert_member($data);
-        if($result){
 
             return $this->output
              ->set_header('HTTP/1.1 200 OK')
              ->set_status_header($status_code)
              ->set_content_type('application/json')
             ->set_output(json_encode($response, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
-        }
+        
 
        }
-
-
-        
-        echo json_encode($result);
 
     }
 
@@ -146,7 +140,7 @@ class Members extends CI_Controller
 
         $this->form_validation->set_rules('fname', 'Firstname', 'required');
         $this->form_validation->set_rules('lname', 'Lastname', 'required');
-        $this->form_validation->set_rules('uname', 'Username', 'required');
+        $this->form_validation->set_rules('uname', 'Username', 'required|callback_username_check');
         $this->form_validation->set_rules('email', 'Email',  'required|valid_email|callback_email_check');
         
          if ($this->input->post('changepass')) {
@@ -227,6 +221,43 @@ class Members extends CI_Controller
              }
     }
 
-   
+    public function username_check($str)
+    {
+        $id = $this->input->post('id');
+        $result = $this->db->get_where('members', array('username' => $str));
+        // if ($result->num_rows > 0) {
+          
+            $result_id = $result->row('id');
+
+            # code...
+        // }
+
+
+            if ($id == $result_id) //inupdate ibang field maliban s sariling email
+            {
+                
+                return TRUE;
+                    
+            }
+            elseif ( $result_id == NULL) //inupdate ibang field maliban s sariling email
+            {
+
+                return TRUE;
+                    
+            }
+             else
+             {
+                 $this->form_validation->set_message('username_check', 'Username is already taken');
+                 return FALSE;
+                    
+             }
+    }
+
+   public function remove()
+   {
+       $id = $this->input->post('id');
+       $data = $this->member_m->removeMember($id);
+       echo json_encode($data);
+   }
 
 }

@@ -30,17 +30,18 @@ $(document).ready(() => {
                 visible: true
             },
             {
-                data: "fullname",
-                render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
-                }
-            },
-            {
                 data: "student_num",
                 render: function (data, type, row, meta) {
                     return textTruncate(type, data, 20);
                 }
             },
+            {
+                data: "fullname",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 20);
+                }
+            },
+
             {
                 data: "address",
                 render: function (data, type, row, meta) {
@@ -165,6 +166,7 @@ $(document).ready(() => {
                 'success'
             )
             $("#modal_borrower_info").modal('hide');
+            borrower.ajax.reload();
         }).fail(function (result) {
             Swal.fire(
                 'Unable to save changes',
@@ -175,21 +177,20 @@ $(document).ready(() => {
     })
 
     $('#borrower_add').click(function () {
-        $("#modal_borrow").modal('show');
+        $("#modal_mborrow").modal('show');
 
     })
     $('.btn-xsave').click(function () {
         var frm = $(".borrowfrm").serialize();
         $.post(base_url + '/admin/transaction/borrowedbooks/borrower', frm).done(function (result) {
-
+            $(".borrowfrm")[0].reset();
             Swal.fire(
                 '',
                 result.message,
-                'Successfully Added',
                 'success'
             )
             borrower.ajax.reload();
-            $("#modal_borrow").modal('hide');
+            $("#modal_mborrow").modal('hide');
         }).fail(function (result) {
             Swal.fire(
                 '',

@@ -99,7 +99,7 @@ class Borrowed_Model extends CI_Model
     * @param boolean $raw [description] 
     */
 
-    private function _getDataTableBorrowedBooks($sort_col = 'bb.id', $sort_dir = 'ASC', $search_value = "", $headers_only = FALSE, $raw = FALSE)
+    private function _getDataTableBorrowedBooks($sort_col = 'bb.id', $sort_dir = 'ASC', $search_value = "", $headers_only = FALSE, $raw = FALSE, $date = FALSE)
     {
       $search_cols = array(
         "bb.id" => $search_value,
@@ -112,6 +112,9 @@ class Borrowed_Model extends CI_Model
       $this->db->join("books AS b", "bb.book_id = b.id");
       $this->db->join("borrowers AS br", "bb.borrower_id =  br.id");
       $this->db->where("bb.borrowed_status", "unreturned");
+      if ($date) {
+        $this->db->where("bb.date_borrowed", "$date");
+      }
 
     //   $this->db->select("b.*");
     //   $this->db->from("borrowed_books AS b");
@@ -138,9 +141,9 @@ class Borrowed_Model extends CI_Model
     * @param boolean $raw [description]
     * @return array [description]
     */
-    public function getBorrowedBooksDatatable($limit = 10, $offset = 0, $sort_col = 'bb.id', $sort_dir = 'ASC', $search_value = "", $headers_only = FALSE, $raw = FALSE)
+    public function getBorrowedBooksDatatable($limit = 10, $offset = 0, $sort_col = 'bb.id', $sort_dir = 'ASC', $search_value = "", $date= FALSE, $headers_only = FALSE, $raw = FALSE)
     {
-      $this->_getDataTableBorrowedBooks($sort_col, $sort_dir, $search_value, $headers_only, $raw);
+      $this->_getDataTableBorrowedBooks($sort_col, $sort_dir, $search_value, $headers_only, $raw, $date);
 
         if($limit != -1)
         $this->db->limit($limit, $offset);
@@ -199,13 +202,18 @@ class Borrowed_Model extends CI_Model
 
     public function selectByDate($date)
     {
+      // $this->db->select("bb.id ,b.barcode, br.fullname, b.title, bb.date_borrowed, bb.due_date, bb.date_returned, bb.borrowed_status, bb.penalty");
+      // $this->db->from("borrowed_books AS bb");
+      // $this->db->join("books AS b", "bb.book_id = b.id");
+      // $this->db->join("borrowers AS br", "bb.borrower_id =  br.id");
       $this->db->select("bb.id ,b.barcode, br.fullname, b.title, bb.date_borrowed, bb.due_date, bb.date_returned, bb.borrowed_status, bb.penalty");
       $this->db->from("borrowed_books AS bb");
       $this->db->join("books AS b", "bb.book_id = b.id");
       $this->db->join("borrowers AS br", "bb.borrower_id =  br.id");
-      $this->db->where("bb.borrowed_date", "$date");
+      $this->db->where("bb.borrowed_status", "unreturned");
+      $this->db->where("bb.date_borrowed", "$date");
 
-      return $this->db->get()->row_array();
+      return $this->db->get()->result_array();
     }
 
 }

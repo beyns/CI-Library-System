@@ -22,6 +22,41 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal_borrow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title category"> </h5>
+            </div>
+
+            <div class="modal-body">
+            <?php echo form_open('', array('class' => 'borrowForm'))?>
+                <input type="hidden" class="book_ids" name="b_id">
+                <input type="hidden" class="bbook_qty" name="b_qty">
+                <input type="hidden" class="br_qty" name="br_qty">
+                <input type="hidden" class="stud_id" name="s_id">
+                <!-- <input type="text" class="bk-title" name="title"> -->
+              
+                <blockquote>
+                    <p class="mb-0 book_title"> </p>
+                    <footer class="author">
+
+                    </footer>
+                </blockquote>  
+                <select class="js-select form-control" name="state">
+                    <option selected value=""></option>
+              </select>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success btn-borrow" id="btn-borrow" >Borrow Book</button>
+            </div>
+        <?php echo form_close(); ?>
+            </div>
+           
+        </div>
+    </div>
+</div>
 
 
 
@@ -37,12 +72,12 @@
             </div>
 
             <div class="modal-body">
-                <?php echo form_open('' ,array('class' => 'removebook'))?>
-                <input type="hidden" id="book_id" name="id" />
-                <p>Are you sure you want to delete this book?</p>
-                <button type="button" class="btn btn-danger" id="btn-remove-book" data-dismiss="modal">Remove</button> 
+                <?php echo form_open('' ,array('class' => 'rembook'))?>
+                <input type="hidden" id="bbid" name="bbid" />
+                <p>Are you sure you want to deletes this book?</p>
+                <button type="button" class="btn btn-danger btn-rembook" id="btn-rembook" data-dismiss="modal">Remove</button> 
                  <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancel</button>
-                </form>
+                <?php echo form_close(); ?>
             </div><!-- /.modal-body -->
             <!-- .modal-footer -->
             <div class="modal-footer">

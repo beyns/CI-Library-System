@@ -17,4 +17,10 @@ class Logout extends CI_Controller
 		redirect('auth/login');
     }
 
+    function logout()  
+      {  
+           $this->session->unset_userdata('username');  
+           redirect('auth/login','refresh');  
+      } 
+
 }

@@ -63,7 +63,7 @@
 				</table>
 			</div>
 		</div>
-		<?php $this->load->view('books/borrow_modal') ?>
+		<?php //$this->load->view('books/borrow_modal') ?>
 
 	</div>
 	<footer class="app-footer">

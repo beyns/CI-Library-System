@@ -4,9 +4,8 @@ $(document).ready(() => {
     var book_table;
     var max_field = 10;
     var wrapper = $(".form-group-input"); //Fields wrapper
+    $(".subcat").hide();
 
-    $('.btn-save').hide();
-    $('.btn-borrow').hide();
 
     book_table = $("#bookTable").DataTable({
         processing: true,
@@ -33,43 +32,49 @@ $(document).ready(() => {
             {
                 data: "isbn",
                 render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
+
+                    return textTruncate(type, data, 0);
                 }
             },
             {
                 data: "title",
                 render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
+                    return data.substr(0, 10) + '…';
                 }
             },
             {
                 data: "description",
                 render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 10);
+                    return data.substr(0, 10) + '…';
+                    return textTruncate(type, data, 0);
                 }
             },
             {
                 data: "author",
                 render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
+                    return textTruncate(type, data, 0);
                 }
             },
 
             {
                 data: "category",
                 render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
+                    return textTruncate(type, data, 0);
                 }
             },
             {
                 data: "subcategory",
                 render: function (data, type, row, meta) {
-                    return textTruncate(type, data, 20);
+                    return textTruncate(type, data, 0);
                 }
             },
             {
                 data: "qty",
                 render: function (data, type, row, meta) {
+                    if (data == 0) {
+                        return '<span class="badge badge-danger">NO AVAILABLE BOOK </span>'
+
+                    }
                     return textTruncate(type, data, 20);
                 }
             },
@@ -105,7 +110,7 @@ $(document).ready(() => {
                         "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-modal-del' href='#' id ='btn-modal-edit'><i class='far fa-trash-alt'></i></button>" +
                         "<button data-id='" +
                         data +
-                        "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-modal-borrow' href='#' id ='btn-modal-edit'><i class='fas fa-book-reader'></i></button>"
+                        "' class='btn btn-sm btn-icon btn-secondary  btn-modal ' id='btn-mb' href='#'><i class='fas fa-book-reader'></i></button>"
 
                     );
 
@@ -157,8 +162,9 @@ $(document).ready(() => {
                     $.get(base_url + '/book/show', { id: id }).done(function (result) {
                         console.log(result);
                         let parseResult = JSON.parse(result);
-                        $("#book_id").val(parseResult.id);
+                        $("#bbid").val(parseResult.id);
                         $(".book_title").text(parseResult.title);
+
                     });
                     $('#modal_del').modal('show');
                 }
@@ -167,10 +173,11 @@ $(document).ready(() => {
                     $.get(base_url + '/book/show', { id: id }).done(function (result) {
                         console.log(result);
                         let parseResult = JSON.parse(result);
-                        $(".book_id").val(parseResult.id);
+                        $(".bbid").val(parseResult.id);
                         $(".book_title").text(parseResult.title);
                         $(".bbook_title").val(parseResult.title);
                         $(".bbook_qty").val(parseResult.qty);
+                        $(".book_ids").val(parseResult.id);
 
 
                     });
@@ -184,6 +191,7 @@ $(document).ready(() => {
                     })
 
                     $('#modal_borrow').modal('show');
+
                 }
 
 
@@ -337,25 +345,31 @@ $(document).ready(() => {
             if (res.length) {
                 // sub_category.attr('disabled', false);
                 $(".subcategory").show();
+
             } else {
                 // sub_category.attr('disabled', 'disabled');
                 $(".subcategory").hide();
+                $(".subcat").show();
+                $(".cat").hide();
             }
         })
         // console.log(id);
     })
 
-    $('.js.select').change(function () {
+    $('.js-select').change(function () {
         let id = $(this).find(":selected").data('id');
 
         console.log($(this).find(':selected').data('id'));
     })
 
-    $('#btn-remove-book').click(function () {
-        var frm = $(".removebook").serialize();
+    $('.btn-rembook').click(function () {
+        var frm = $(".rembook").serialize();
+        console.log(frm);
         $.post(base_url + '/admin/book/books/destroy', frm).done(function (result) {
             console.log(result);
             book_table.ajax.reload();
+        }).fail(function () {
+            alert('Error');
         })
     })
 
@@ -368,9 +382,9 @@ $(document).ready(() => {
             return obj;
         });
         $(".js-select").select2({
-
-            data: data,
-
+            placeholder: "Select a student",
+            allowClear: true,
+            data: data
         }).on("change", function (e) {
             var obj = $(".js-select").select2("data");
             var id = obj[0].id;
@@ -441,5 +455,12 @@ $(document).ready(() => {
     $('.btn-xcancel').click(function () {
         $('#modal_borrow').modal('hide');
         window.location.reload()
+    })
+
+    $('.cat_del').click(function () {
+        // $.post(base_url + '/admin/book/category/remove_cat', $('.delcat').serialize).done(function (result) {
+        //     console.log(result);
+        // })
+        alert('hello');
     })
 })

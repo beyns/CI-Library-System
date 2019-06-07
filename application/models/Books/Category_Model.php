@@ -127,4 +127,29 @@ class Category_Model extends CI_Model
         $data = $this->db->get_where('book_category', array('id' => $id));
         return $data->row_array();
     }
+
+    // public function update_infos($data =[],$id)
+    // {
+
+    //   $id = $data['id'];
+    //   $this->db->where('id', $id);
+    //  return $this->db->update('borrowers', $data);
+    // }
+    public function savechanges($category,$id)
+    {
+
+      $data = array(
+        'category' => $category,
+      );
+
+      $this->db->where('id', $id);
+      return $this->db->update('book_category', $data);
+
+
+    }
+    public function removeCategory($id)
+    {
+      $this->db->where('id',$id);
+      return $this->db->delete('book_category');
+    }
 }
