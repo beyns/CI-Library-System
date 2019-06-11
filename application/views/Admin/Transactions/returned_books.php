@@ -61,7 +61,7 @@
 				<header class="page-title-bar">
 					<div class="d-flex flex-column flex-md-row">
 						<p class="lead">
-							<span class="font-weight-bold">Books Borrowed</span>
+							<span class="font-weight-bold">Transaction Logs</span>
 						</p>
 					
 					</div>
@@ -71,12 +71,11 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Barcode</th>
 							<th scope="col">Name</th>
 							<th scope="col">Title</th>
-							<th scope="col">Date Borrowed</th>
-							<th scope="col">Due Date</th>
-							<th scope="col"> Status</th>
+							<th scope="col">Address</th>
+							<th scope="col">Contact</th>
+							<th scope="col">Status</th>
 							<th scope="col">Date Returned</th>
 							<th scope="col">Penalty</th>
 

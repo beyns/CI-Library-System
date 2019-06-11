@@ -11,11 +11,10 @@
 		<div class="main-content position-relative">
 
 			<div class="r">
-				<header class="page-title-bar">
+				<header class="page-title-bar mb-5">
 					<div class="d-flex flex-column flex-md-row">
 						<p class="lead">
 							<span class="font-weight-bold">Books List</span>
-
 						</p>
 						<div class="ml-auto">
 							<!-- Button trigger modal -->
@@ -23,6 +22,7 @@
 							<button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
 								data-target="#modal-change-username">Add Book</button>
 
+								
 							<!-- Modal -->
 							<div class="modal fade" id="modal-change-username" tabindex="-1" role="dialog"
 								aria-labelledby="modal-change-username" aria-hidden="true">
@@ -52,6 +52,9 @@
 													will be asked to confirm this action in order to be completed.
 												</p>
 											</div>
+											<div class="barcode">
+											
+											</div>
 											<div class="row">
 												<div class="col-sm-6">
 													<label class="form-control-label">Title</label>
@@ -78,7 +81,7 @@
 												<div class="col-sm-6">
 													<div class="form-group">
 														<label class="form-control-label">Quantity</label>
-														<input class="form-control form-control-sm" name="qty"
+														<input class="form-control form-control-sm qty" name="qty"
 															type="text">
 													</div>
 												</div>
@@ -135,9 +138,9 @@
 						</div>
 					</div>
 				</header>
-				<div class="container">
-					<div class="row">
-						<table class="display table table-striped table-hover " id="bookTable">
+				<div class="card table-responsive">
+					<div class="card-body">
+						<table class=" table table-striped table-hover" id="bookTable">
 							<thead>
 								<tr>
 									<th scope="col">#</th>

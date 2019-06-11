@@ -7,6 +7,138 @@ $(document).ready(() => {
     $(".subcat").hide();
 
 
+    books = $("#books").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: base_url + "/admin/book/books/booksTable",
+            dataType: "json",
+            // data: {_token : $('meta[name="token_"]').attr('content')},
+            type: "POST"
+        },
+
+        lengthMenu: [10, 25, 50, 75, 100, 250, 500],
+        rowReorder: {
+            selector: ".sort-column",
+            update: false
+        },
+        columns: [
+            {
+                data: "id",
+                orderable: true,
+                searchable: true,
+                visible: true
+            },
+            {
+                data: "isbn",
+                render: function (data, type, row, meta) {
+
+                    return textTruncate(type, data, 0);
+                }
+            },
+            {
+                data: "title",
+                render: function (data, type, row, meta) {
+                    return data.substr(0, 40) + '…';
+                }
+            },
+            {
+                data: "description",
+                render: function (data, type, row, meta) {
+                    return data.substr(0, 35) + '…';
+                    return textTruncate(type, data, 0);
+                }
+            },
+            {
+                data: "author",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 0);
+                }
+            },
+            {
+                data: "category",
+                render: function (data, type, row, meta) {
+                    return textTruncate(type, data, 0);
+                }
+            },
+
+            {
+                data: "id",
+                className: "v-align",
+                searchable: false,
+                orderable: false,
+                render: function (data, type, row, meta) {
+                    /**
+                     * Attach actions
+                     */
+                    //   return "<div class=\"btn-group\" role=\"group\" aria-label=\"actions\">" +
+                    //           "<button class='btn btn-xs btn-primary viewBtn' type='button' title='View' data-toggle='modal' data-target='#viewCategoryModal' value='"+data+"'><span class='fa fa-eye'></span></button> " +
+                    //           "<button class='btn btn-xs btn-success editBtn' type='button' title='Edit' data-toggle='modal' data-target='#editCategoryModal' value='"+data+"'><span class='fa fa-pencil'></span></button>" +
+                    //           "<button class='btn btn-xs btn-danger delBtn' type='button' title='Delete' data-toggle='modal' data-target='#deleteCategoryModal' value='"+data+"'><span class='fa fa-trash'></span></button>" +
+                    //           "</div>";
+                    return (
+                        "<button  data-id='" +
+                        data +
+                        "' class='btn btn-sm btn-icon btn-secondary  borrow_book' id='btn-modal-view' > <i class='fal fa-book-open'></i></button>"
+
+                    );
+
+                    ("Edit");
+                    ("</button>");
+                }
+            }
+        ],
+        drawCallback: function () {
+            $('.borrow_book').click(function () {
+                var id = $(this).data("id");
+                $.get(base_url + '/book/show', { id: id }).done(function (result) {
+                    console.log(result);
+                    var res = JSON.parse(result);
+                    console.log(res);
+
+                    $('.booksborrowed').append(' <div class="col-md-4"> ' +
+                        ' <div class="card mb-5 border shadow-none">' +
+                        '<div class="px-3 py-3">' +
+                        ' <div class="row align-items-center">' +
+                        ' <div class="col-auto">' +
+                        '<h6 class="text-sm mb-0">' +
+                        ' <a href="#!"><i class="fal fa-book"></i></a>' +
+                        '</h6>' +
+                        ' </div>' +
+                        ' <div class="col ml-n2">' +
+                        '<input type="hidden" value="' + res.id + '" name="books[]">' +
+                        '<h6 class="text-sm mb-0">' +
+                        '<a href="#!">' + res.title + '</a>' +
+                        ' </h6>' +
+                        ' <p class="card-text small text-muted">' + res.author + '</p > ' +
+                        '  </div >' +
+                        '<div class="col-auto actions">' +
+                        ' <div class="dropdown" data-toggle="dropdown">' +
+                        ' <a href="#" class="action-item" role="button" data-toggle="dropdown"' +
+                        '  aria-haspopup="true" aria-expanded="false">' +
+                        ' <i class="far fa-ellipsis-h"></i>' +
+                        '  </a>' +
+                        ' <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"' +
+                        '   style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(22px, 31px, 0px);">' +
+                        '     <a href="#" class="dropdown-item">Refresh</a>' +
+                        '   <a href="#" class="dropdown-item">Manage Widgets</a>' +
+                        '  <a href="#" class="dropdown-item">Settings</a>' +
+                        '   </div>' +
+                        '   </div>' +
+                        '    </div>' +
+                        ' </div >' +
+                        '  </div >' +
+                        '   </div >' +
+                        ' </div > ')
+
+
+                })
+
+            })
+        },
+
+        order: []
+    });
     book_table = $("#bookTable").DataTable({
         processing: true,
         serverSide: true,
@@ -246,7 +378,7 @@ $(document).ready(() => {
             ? '<span class="cursor-pointer truncated-text" data-text="' +
             data +
             '">' +
-            data.substr(0, length - 2) +
+            data.substr(0, length - 9) +
             "...</span>"
             : data;
         // DO NOT DELETE WILL BE USED LATER ON...
@@ -307,10 +439,44 @@ $(document).ready(() => {
         }
 
         var barcode = 'CIE-' + makeid(5) + '-LMS';
-        $('.barcode').val(barcode);
     })
+    function randomString(length, chars) {
+        var result = '';
+        for (var i = length; i > 0; --i)
+            result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    }
+    var rString = randomString(32,
+        '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    console.log(rString);
 
+
+    for (var i = 0; i < $('.qty').val(); i++) {
+        var barcode = (randomString(11,
+            '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+        $('.barcode').val(barcode);
+        $('.barcode').append('<input type="text" class="form-control value="' + barcode + '" form-control-sm barcode"name="barcode[]">')
+
+    }
     $('.btn-add-book').click(function () {
+        $('.barcode').append('<input type="text" class="form-control value="' + barcode + '" form-control-sm barcode"name="barcode[]">')
+        function randomString(length, chars) {
+            var result = '';
+            for (var i = length; i > 0; --i)
+                result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
+        }
+        var rString = randomString(32,
+            '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        console.log(rString);
+
+
+        for (var i = 0; i < 30; i++) {
+            var barcode = (randomString(11,
+                '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+            console.log(barcode);
+            $('.barcode').val(barcode);
+        }
         $.post(base_url + '/admin/book/books/insert', $('.frmbook').serialize()).done(function (result) {
             console.log(result);
             $('.frmbook')[0].reset();
@@ -462,5 +628,76 @@ $(document).ready(() => {
         //     console.log(result);
         // })
         alert('hello');
+    })
+    $('#search').hide();
+    $('#stud_id').keypress(function (e) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            e.preventDefault();
+
+            $.post('/admin/book/borrow/show', $('.stud_frm').serialize()).done(function (res) {
+                var book_count = res.count.count;
+                console.log(book_count);
+                var result = res.message;
+                $('#search').show();
+
+                if (res.message != null) {
+                    $('.s_id').val(res.message.id);
+                    $('#search').show();
+                }
+                else {
+                    $('#search').hide();
+                    Swal.fire(
+                        'Unable to borrow Book',
+                        'Cannot find student id',
+                        'error'
+                    )
+                }
+            })
+        }
+    });
+    $('#search').click(function () {
+        $.post('/admin/book/borrow/show', $('.stud_frm').serialize()).done(function (res) {
+            var book_count = res.count.count;
+            console.log(book_count);
+            var result = res.message;
+
+            if (book_count >= 3) {
+                Swal.fire(
+                    'Unable to borrow Book',
+                    'Student Have unreturned books',
+                    'error'
+                )
+                $('.stud_frm')[0].reset();
+                $('#search').hide();
+
+            }
+            else {
+                if (res.message) {
+                    $('.s_id').val(res.message.id);
+                    $('.bid').val(res.message.id);
+                    $('.bfn').val(res.message.fullname);
+                    $('.bsn').val(res.message.student_num);
+                    $('.bcnt').val(res.message.contact);
+                    $('.badd').val(res.message.address);
+                    $('.borrow-modal').modal('show');
+                }
+
+            }
+
+        }).fail(function (res) {
+            console.log(res);
+            Swal.fire(
+                'error',
+                //res.responseJSON.message,
+                'error'
+            )
+        })
+    })
+
+    $('#borrow_save').click(function () {
+        $.post('/admin/book/borrow/insert', $('.borrow_form').serialize()).done(function (res) {
+            borrowed_table.ajax.reload();
+        })
     })
 })

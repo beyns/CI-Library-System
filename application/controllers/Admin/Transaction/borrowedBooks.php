@@ -197,9 +197,10 @@ class BorrowedBooks extends CI_Controller
             {
                 switch ($val['data']) {
                     case 'id':
+                    case 'borrower_id':
                     case 'barcode':
                     case 'fullname':
-                    case 'title':
+                    case 'count':
                     case 'date_borrowed':
                     case 'due_date':
                     case 'borrowed_status':

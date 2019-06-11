@@ -136,7 +136,8 @@ class Book_Model extends CI_Model
 
     public function add_book($data)
     {
-        $this->db->insert('books', $data);
+        $this->db->insert_batch('books', $data);
+        return $this->db->last_query();
     }
 
     public function get_book_info($id)

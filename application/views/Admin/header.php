@@ -140,25 +140,51 @@
                   Home
                 </a>
               </li>
-              <!-- Application menu -->
+              <li class="nav-item ">
+                <a class="nav-link pl-lg-0" href="<?php echo base_url("admin/book/books")?>">
+                  Book List
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link pl-lg-0" href="<?php echo base_url("admin/book/borrow")?>">
+                  Borrow
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link pl-lg-0" href="<?php echo base_url("admin/user/members")?>">
+                  Users
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link pl-lg-0" href="<?php echo base_url("admin/transaction/borrowedbooks")?>">
+                  Transactions
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link pl-lg-0" href="../../application/home.html">
+                  Reports
+                </a>
+              </li>
+              <!-- Application menu
               <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Books
+                <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Book List
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow p-lg-0">
-                  <!-- Top dropdown menu -->
+             
                   <div class="p-lg-4">
                     <div class="dropdown dropdown-animate dropdown-submenu" data-toggle="hover">
-                      <a href="#" class="dropdown-item dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a 	href="<?php //echo base_url("admin/book/books")?>" class="dropdown-item " role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Book List
                       </a>
                     </div>
                   </div>
                   </div>
-                  <!-- Bottom dropdown menu -->
+               
               
                 </div>
-              </li>
+              </li> -->
+              
            
             </ul><!-- Right menu -->
             <ul class="navbar-nav ml-lg-auto align-items-center d-none d-lg-flex">

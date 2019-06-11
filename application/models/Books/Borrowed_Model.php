@@ -106,12 +106,14 @@ class Borrowed_Model extends CI_Model
       );
 
 //SELECT `fullname`, `title` FROM `borrowed_books` INNER JOIN borrowers as br ON borrowed_books.borrower_id = br.id INNER JOIN books as b ON borrowed_books.book_id = b.id
-
-      $this->db->select("bb.id ,b.barcode, br.fullname, b.title, bb.date_borrowed, bb.due_date, bb.date_returned, bb.borrowed_status, bb.penalty");
+//SELECT DISTINCT `fullname`, COUNT(DISTINCT `book_id`) FROM `borrowed_books` INNER JOIN borrowers as br ON borrowed_books.borrower_id = br.id INNER JOIN books as b ON borrowed_books.book_id = b.id 
+      $this->db->distinct('br.fullname');
+      $this->db->select("bb.id ,b.barcode, bb.borrower_id, br.fullname, COUNT(DISTINCT bb.book_id) as count, bb.date_borrowed, bb.due_date, bb.date_returned, bb.borrowed_status, bb.penalty", false);
       $this->db->from("borrowed_books AS bb");
       $this->db->join("books AS b", "bb.book_id = b.id");
       $this->db->join("borrowers AS br", "bb.borrower_id =  br.id");
       $this->db->where("bb.borrowed_status", "unreturned");
+      $this->db->group_by("br.fullname");
       if ($date) {
         $this->db->where("bb.date_borrowed", "$date");
       }
